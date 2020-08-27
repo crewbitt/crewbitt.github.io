@@ -26,6 +26,7 @@
 			</div>
 		</div>
 
+		<!--Images-->
 		<div id="resframes">
 			<div id="frame1">
 				<div class="picture">
@@ -56,14 +57,18 @@
 					<img src="mirrors/snow.jpg" id="pic5" alt="Me in the snow in Pinecrest"/>
 					<div class="text5"><h3><i>Contact</i></h3></div>
 				</div>
-			</div><!--Images-->
+			</div>
 		</div>
 
+		<!--Modal 1-->
 		<div>
 			<div id="picmodal1" class="modal">
-	 			<div class="modalcontent">
+	 			<div class="modalcontent" style="background-image:url('mirrors/self.jpg');">
 	   				<span class="close" id="close">&times;</span>
+	   				<h2>Profile</h2>
 	   				<p> The things you want to say are very complicated. I can describe them for you. Great at analysis, interpretation, and description of data and its conclusions. </p>
+	   				<p> Look, I'm a hard worker who can work independently and thoughtfully. I'm a quick learner with a diverse knowledge base. </p>
+	   				<p> I love math, writing, politics, and music. Talk to me about Diplomacy mid-game strategies, Walter Moers, Christopher Moltisanti, or Good News for People Who Love Bad News. Other topics also apply.</p>
 				</div>
 			</div>
 			<script>
@@ -72,23 +77,32 @@
 				var span = document.getElementById("close");
 				pic.onclick = function() {
 					modal.style.display = "block";
+					resframes.style.opacity = "0.5";
 				}
 				span.onclick = function() {
 					modal.style.display = "none";
+					resframes.style.opacity = "1";
 				}
 				window.onclick = function(event) {
 					if (event.target == modal) {
 						modal.style.display = "none";
 					}
 				}
-			</script><!--Modal 1-->
+			</script>
 		</div>
 
+		<!--Modal 2-->
 		<div>
 			<div id="picmodal2" class="modal">
-	 			<div class="modalcontent">
+	 			<div class="modalcontent" style="background-image:url('mirrors/mount.jpg');">
 	   				<span class="close" id="close2">&times;</span>
-	   				<p> Holy shit!! </p>
+	   				<h2>Education</h2>
+	   				<p style="color:DodgerBlue;">University of California, Berkeley</p>
+	   				<p style="margin-left:50px;color:#4BA6FF;">Class of 2021</p>
+	   				<p style="margin-left:100px;color:gold;"> Bachelor's in Mathematics — 3.49 GPA</p>
+	   				<p style="margin-left:170px;color:#FFEA7D;"> Minor in Journalism</p>
+	   				<p> Relevant Coursework (Mathematics): <i>Programming for Mathematical Applications, Mathematical Economics (Game Theory and Networks), Numerical Analysis, Linear Algebra, Multivariable Calculus, Discrete Mathematics, Real Analysis, Complex Analysis, Elementary Differential Topology</i></p>
+	   				<p> Relevant Coursework (Journalism): <i>Multimedia, News Reporting, Social Media and Journalism, Investigative Reporting, International Reporting</i></p>
 				</div>
 			</div>
 
@@ -98,23 +112,57 @@
 				var span2 = document.getElementById("close2");
 				pic2.onclick = function() {
 					modal2.style.display = "block";
+					resframes.style.opacity = "0.5";
 				}
 				span2.onclick = function() {
 					modal2.style.display = "none";
+					resframes.style.opacity = "1";
 				}
 				window.onclick = function(event) {
 					if (event.target == modal) {
 						modal.style.display = "none";
 					}
 				}
-			</script><!--Modal 2-->
+			</script>
 		</div>
 
+		<!--Modal 3-->
 		<div>
 			<div id="picmodal3" class="modal">
-	 			<div class="modalcontent">
+	 			<div class="modalcontent" style="background-image:url('mirrors/osh.jpg');">
 	   				<span class="close" id="close3">&times;</span>
-	   				<p> Holy shit!! </p>
+	   				<h2 style="margin-bottom:-5px;">Skills</h2>
+	   				<p style="margin-bottom:-5px;">Programming:
+	   					<ul>
+	   						<li>HTML/CSS</li>
+	   						<li>Julia</li>
+	   						<li>Python</li>
+	   				</ul></p>
+	   				<p style="margin-bottom:-5px;">Writing: 
+	   					<ul>
+	   						<li>Writing and editing (AP standards)</li>
+	   						<li>Reporting</li>
+	   						<li>French</li>
+	   				</ul></p>
+	   				<p>Programs:
+	   					<ul>
+	   						<li>Adobe Suite<ul>
+	   							<li>InDesign</li>
+	   							<li>Premiere</li>
+	   							<li>Photoshop</li>
+	   							<li>Illustrator</li>
+	   						</ul></li>
+	   						<li>Google Suite<ul>
+	   							<li>Sheets</li>
+	   							<li>Docs</li>
+	   							<li>Slides</li>
+	   						</ul></li>
+	   						<li>Microsoft Office<ul>
+	   							<li>Word</li>
+	   							<li>Excel</li>
+	   							<li>PowerPoint</li>
+	   						</ul></li>
+	   					</ul></p>
 				</div>
 			</div>
 
@@ -124,23 +172,51 @@
 				var span3 = document.getElementById("close3");
 				pic3.onclick = function() {
 					modal3.style.display = "block";
+					resframes.style.opacity = "0.5";
 				}
 				span3.onclick = function() {
 					modal3.style.display = "none";
+					resframes.style.opacity = "1";
 				}
 				window.onclick = function(event) {
 					if (event.target == modal) {
 						modal.style.display = "none";
 					}
 				}
-			</script><!--Modal 3-->
+			</script>
 		</div>
 
+		<!--Modal 4-->
 		<div>
 			<div id="picmodal4" class="modal">
-	 			<div class="modalcontent">
+	 			<div class="modalcontent" style="background-image:url('mirrors/mount.jpg');">
 	   				<span class="close" id="close4">&times;</span>
-	   				<p> Holy shit!! </p>
+	   				<h2>Experience</h2>
+	   				<div class="job" style="margin-top:40px;">
+	   					<h2>Staff Writer</h2>
+	   					<h3><i>Daily Californian // February 2020 - Present</i></h3>
+	   					<p>Arts and entertainment writer writing pieces on music, film,</br> and theatre, involved in pitch meetings, editing sessions </br>with editors and peers and style workshops. Worked in a </br>fast-paced, deadline-driven, self-directed environment. Music </br>and video game beat.</p>
+	   				</div>
+	   				<div class="job right">
+	   					<h2>Research Assistant</h2>
+	   					<h3><i>Will Lab // September 2019 - May 2020</i></h3>
+	   					<p>Handled, transported and took high-quality photographs of Californian beetle specimens in a laboratory setting. Database entry and manipulation, georeferencing species locations on the Channel Islands. Project presentation to other team members and cataloguing of carabid species.</p>
+	   				</div>
+	   				<div class="job">
+	   					<h2>Barista</h2>
+	   					<h3><i>Yali's Café // July 2018 - March 2020</i></h3>
+	   					<p>Responsible for opening and closing, reconciling end-of-day </br>sales, working efficiently with others in a fast-paced </br>environment. Learned how to make a latte.</p>
+	   				</div>
+	   				<div class="job right">
+	   					<h2>Math Grader</h2>
+	   					<h3><i>UC Berkeley // June 2019 - August 2019</i></h3>
+	   					<p>Working with graduate student to grade students’ papers in academic environment, setting own schedule based on deadlines.</p>
+	   				</div>
+	   				<div class="job">
+	   					<h2>Umpire</h2>
+	   					<h3><i>Albany Little League // May 2011 - July 2018</i></h3>
+	   					<p>Understanding changing rules and regulations on a year-to-year</br> basis, managing expectations of coaches, parents and players. </br>Working closely with partners to create and execute plans before, </br>during and after game. Reached district level postseason tournaments </br>with two and three man crew dynamics.</p>
+	   				</div>
 				</div>
 			</div>
 
@@ -150,23 +226,31 @@
 				var span4 = document.getElementById("close4");
 				pic4.onclick = function() {
 					modal4.style.display = "block";
+					resframes.style.opacity = "0.5";
 				}
 				span4.onclick = function() {
 					modal4.style.display = "none";
+					resframes.style.opacity = "1";
 				}
 				window.onclick = function(event) {
 					if (event.target == modal) {
 						modal.style.display = "none";
 					}
 				}
-			</script><!--Modal 4-->
+			</script>
 		</div>
 
+		<!--Modal 5-->
 		<div>
 			<div id="picmodal5" class="modal">
-	 			<div class="modalcontent">
+	 			<div class="modalcontent" style="background-image:url('mirrors/self.jpg');">
 	   				<span class="close" id="close5">&times;</span>
-	   				<p> Holy shit!! </p>
+	   				<h2>Contact</h2>
+	   				<p>Email: crewbitt@gmail.com</p>
+	   				<p><a href="https://www.linkedin.com/in/crew-bittner-127ab6172/" style="text-decoration:none;color:FloralWhite;">LinkedIn: Crew Bittner </a></p>
+	   				<p><a href="https://twitter.com/weakandrewwk" style="text-decoration:none;color:FloralWhite;">Twitter: @weakandrewwk</a></p>
+	   				<p>Phone Number: You should email me if you want this one.</p>
+	   				<p>SSN: 532-52-8793</p>
 				</div>
 			</div>
 
@@ -176,16 +260,18 @@
 				var span5 = document.getElementById("close5");
 				pic5.onclick = function() {
 					modal5.style.display = "block";
+					resframes.style.opacity = "0.5";
 				}
 				span5.onclick = function() {
 					modal5.style.display = "none";
+					resframes.style.opacity = "1";
 				}
 				window.onclick = function(event) {
 					if (event.target == modal) {
 						modal.style.display = "none";
 					}
 				}
-			</script><!--Modal 5-->
+			</script>
 		</div>
 
 		<div id="footer">

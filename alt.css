@@ -162,6 +162,16 @@ h3 {
 		left:23%;
 		top:125px;
 	}
+	#resframes>#frame1>div>#pic1 {
+		height:800px;
+		width:600px;
+		margin-left:-150%;
+	}
+	#resframes>#frame2>div>#pic2 {
+		height:800px;
+		width:600px;
+		margin-left:-350%;
+	}
 }
 
 #resframes>#frame3 {
@@ -186,6 +196,11 @@ h3 {
 @media screen and (max-width:600px) {
 	.text3 {
 		top:150px;
+	}
+	#resframes>#frame3>div>#pic3 {
+		height:800px;
+		width:600px;
+		margin-left:-150%;
 	}
 }
 
@@ -213,6 +228,11 @@ h3 {
 		left:63%;
 		top:175px;
 	}
+	#resframes>#frame4>div>#pic4 {
+		height:800px;
+		width:600px;
+		margin-left:-40%;
+	}
 }
 
 #resframes>#frame5 {
@@ -237,6 +257,11 @@ h3 {
 @media screen and (max-width:600px) {
 	.text5 {
 		top:200px;
+	}
+	#resframes>#frame5>div>#pic5 {
+		height:800px;
+		width:600px;
+		margin-left:-150%;
 	}
 }
 
@@ -288,12 +313,13 @@ h4 {
 	font-family:FrutigerBold;
 	font-variant:small-caps;
 }
-/*MODAL*/
+/*MODALS*/
 .modalcontent{
-	background-color:rgba(0,0,0,0.95);
+	background-color:rgba(0,0,0,0.8);
 	margin: 15% auto;
 	margin-top:-750;
 	padding:10px;
+	overflow:scroll;
 }
 .modal {
 	display:none;
@@ -303,6 +329,7 @@ h4 {
 	background-color:rgba(0,0,0,.4);
 	width:90%;
 	margin-left:5%;
+	font-family:Frutiger;
 }
 .close {
 	color:white;
@@ -313,4 +340,28 @@ h4 {
 .close:hover {
 	color:gray;
 	cursor:pointer;
+}
+.job {
+	margin-top:-40px;
+}
+.job>h2 {
+	font-size:130%;
+	margin-left:3%;
+	font-family:FrutigerBold;
+}
+.job>h3 {
+	font-size:90%;
+	margin-top:-38px;
+	margin-left:210px;
+}
+.job>p {
+	margin-left:3%;
+}
+.right{
+	margin-left:50%;
+}
+@media screen and (max-width:600px){
+	.rightjob {
+		margin-left:0%;
+	}
 }
