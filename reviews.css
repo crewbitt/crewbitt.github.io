@@ -1,0 +1,48 @@
+.reviewtext {
+	font-family:Georgia;
+	width:40%;
+	margin-left:45%;
+	z-index:1;
+}
+
+.albumcover {
+	width:300px;
+}
+
+table {
+	font-family:Times;
+	font-size:auto;
+}
+
+td {
+	padding-left:5px;
+	padding-right:10px;
+}
+
+th {
+	border:5px;
+}
+
+a:link {
+	color:black;
+	text-decoration:none;
+}
+
+a:visited {
+	color:black;
+	text-decoration:none;
+}
+
+img {
+	float:left;
+}
+
+@media screen and (max-width:675px) {
+	.reviewtext{
+		width:100%;
+		margin-left:0%;
+	}
+	.bonuspic{
+		margin-top:0px;
+	}
+}
