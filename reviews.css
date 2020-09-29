@@ -9,6 +9,18 @@
 	width:300px;
 }
 
+.musicembed {
+	margin-left:75%;
+	margin-top:-20px;
+	align-items:right;
+	height:11%;
+	position:relative;
+}
+
+.main {
+	opacity:.3;
+}
+
 table {
 	font-family:Times;
 	font-size:auto;
