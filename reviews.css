@@ -21,6 +21,12 @@
 	opacity:.3;
 }
 
+.other {
+	color:purple;
+	font-family:Bradley Hand;
+	margin-left:55%;
+}
+
 table {
 	font-family:Times;
 	font-size:auto;
