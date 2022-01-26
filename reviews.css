@@ -7,6 +7,16 @@
 
 .albumcover {
 	width:300px;
+	margin-top:10px;
+	margin-left:10%;
+	z-index:0;
+}
+
+.bonuspic{
+	margin-top:-150px;
+	margin-left:-100%;
+	width:500px;
+	z-index:0;
 }
 
 .musicembed {
@@ -25,6 +35,10 @@
 	color:purple;
 	font-family:Bradley Hand;
 	margin-left:55%;
+}
+
+.albumtitle {
+	margin-left:5px;
 }
 
 table {
@@ -55,12 +69,31 @@ img {
 	float:left;
 }
 
-@media screen and (max-width:675px) {
+@media only screen and (max-width:900px) {
 	.reviewtext{
 		width:100%;
 		margin-left:0%;
+		position:relative;
+		text-align:left;
 	}
 	.bonuspic{
-		margin-top:0px;
+		display:block;
+		margin-top:0%;
+		margin-left:0%;
+		width:500px;
+		z-index:0;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.albumcover{
+		display:block;
+		margin-left:auto;
+		margin-right:auto
+	}
+	.albumtitle{
+		text-align:center;
+	}
+	img {
+		float:none;
 	}
 }
