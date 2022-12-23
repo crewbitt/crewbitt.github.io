@@ -1,0 +1,147 @@
+body {
+	width:600px;
+	margin: 0 auto;
+	background-image:url("background1.jpeg");
+}
+
+#center_index {
+	background-color:beige;
+	height:700px;
+}
+
+#center {
+	background-color:beige;
+}
+
+#header {
+	overflow:auto;
+	text-align:center;
+}
+
+/*intro*/
+
+#introblock {
+	width:450px;
+	margin: -400 0 0 80;
+}
+
+#profileimage {
+	padding:3px;
+	padding-right:5px;
+	float:left;
+}
+
+/*links*/
+
+#linkblock {
+	width:450px;
+	margin:0 0 0 80;
+	text-align:center;
+}
+
+/*articles*/
+
+#article_block {
+	width:450px;
+	margin:0 0 0 80;
+}
+
+#article {
+	height:66px;
+	border:1px solid;
+	border-color:navy;
+	margin-bottom:10px;
+}
+
+#article_image {
+	width:60px;
+	padding:3px;
+	float:left;
+}
+
+#article_title {
+	text-align:center;
+	padding:12 0;
+}
+
+/*menus*/
+
+#left {
+	border-style:groove;
+	text-align:center;
+	background-color:grey;
+	width:100px;
+	padding:3px;
+	margin: 0 0 0 -50;
+}
+
+#right {
+	border-style:ridge;
+	text-align:center;
+	background-color:grey;
+	width:100px;
+	padding:3px;
+	/* margin # represents how far right we're pushing the block */
+	margin: 0 0 0 550;
+}
+
+a:link {
+	color:black;
+	text-decoration:none;
+}
+
+a:visited {
+	color:black;
+	text-decoration:none;
+}
+
+/*archive*/
+#archive_table {
+	width:600px;
+	text-align:left;
+}
+
+#archive_heading {
+	border-bottom:1px solid;
+}
+
+/*blog*/
+#blogbody {
+	margin-left:10px;
+	margin-right:10px;
+}
+#blogpost {
+	padding:5px;
+	border:1px solid;
+}
+#blogtitle{
+	text-align:center;
+}
+
+/*music*/
+#music_table {
+	width:600px;
+	text-align:center;
+}
+
+#my_album_cover {
+	width:190px;
+}
+
+#my_album_title {
+	border-top:1px solid;
+	border-radius:25px;
+}
+
+#applemusic {
+	padding-bottom:20px;
+	color:grey;
+}
+
+#bandcamp {
+	color:#629aa9;
+}
+
+#spotify {
+	color:#1db954;
+}
