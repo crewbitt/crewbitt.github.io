@@ -1,0 +1,678 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Album Reviews 2022</title>
+	<style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d24f027b-be97-483c-a371-e0bc78731c88" class="page sans"><header><div class="page-header-icon undefined"><span class="icon"><a href="index.html">💽</a></span></div><h1 class="page-title">Album Reviews 2022</h1></header><div class="page-body"><p id="15914bfb-d0c6-43d8-85fa-0717fed1ecc0" class=""><em><em><em><em><em><em><em><em>Preamble</em></em></em></em></em></em></em></em></p><p id="590d2391-cd62-467e-aa74-c23b4e95980d" class="">End of year lists are bullshit. Even aggregated decisions made by committee tend towards inescapable group biases. Just check out the top 4 entries of Pitchfork readers’ top 200 albums of the past 25 years:</p><figure id="580646e6-c762-4115-b444-dcc3e3932d9a" class="image"><a href="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-08_at_1.50.03_PM.png"><img style="width:240px" src="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-08_at_1.50.03_PM.png"/></a></figure><p id="03264b6d-6ce2-4b02-88d3-a2aae8652a80" class="">I’ve met a few Radiohead fans. Some of them can be fanatical, sure. But I’ve never met anyone with this level of dedication to the band, and I am extremely skeptical of the idea that Thom Yorke and his merry band made three of the four best albums of the past 25 years.</p><p id="d5404298-7bcd-40cb-896e-0bb573d0c5ce" class="">It’s not just a Pitchfork problem (though their base, like Radiohead’s, certainly skews millennial-gay-depressed). Publishing the “best albums” of a given year requires a significant degree of presumptive egotism. The term carries some weird implications with it:</p><ul id="0394bc56-e7c5-4d28-a5a1-b75ed601a415" class="bulleted-list"><li style="list-style-type:disc">The writer listened to every album that came out in a year.</li></ul><ul id="c1661a13-cd4a-4b15-bf3a-8073aa84b6f1" class="bulleted-list"><li style="list-style-type:disc">The writer formed opinions on each of these albums.</li></ul><ul id="ae59df42-3e1d-4ac8-9f67-92a4c721ec32" class="bulleted-list"><li style="list-style-type:disc">These opinions were organized so precisely that they were easily numerated into a digestible ranking of the year’s art.</li></ul><ul id="2dba0481-8878-4b1d-a28d-36ee78640b6e" class="bulleted-list"><li style="list-style-type:disc">Ranking art with the term “best” imbues the writer with quite an authority.</li></ul><p id="754a7bb6-0d65-4212-a433-17539664e2e3" class="">This article is not a comprehensive survey of everything that came out this year. It’s not a list of everything I loved from 2022. It’s not a collection of the year’s best albums, but it is a list of something a little more subjective: my <em><em><em><em><em><em><em><em><em>favorites</em></em></em></em></em></em></em></em></em>.</p><p id="8805d80b-cdb9-49b0-ad25-322d7261a8fe" class="">It’s also not a thinkpiece on the nature of album reviews – I’ll save that for another day. Instead, consider this preamble a disclaimer: the opinions expressed within are my own and, if you disagree with them, I hope you understand that you are completely alone in this belief. I asked everyone else and they said I pretty much nailed it.</p><p id="78b047d7-5062-4911-b0c5-08ed01549acd" class="">One last thing: if you’d like a soundtrack to accompany you, may I humbly suggest my 2022 playlist? I put a little bit of effort into making sure it flows cohesively from song to song, so no need to turn on shuffle (unless you want! <a href="https://youtu.be/wTusGC1eSEA?t=18">I’m not God or your father or your boss!</a>)</p><iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/22jEQSOfujyIdmgj6uxkW0?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe><p id="1d03a4af-7a2f-4661-aeef-0855c6a9d2a7" class="">Alright, without further ado, let’s get started.</p><div id="b459dc10-e822-44c4-b13f-e074c0d5ecae" class="column-list"><div id="8dc1e9ef-c8f1-45ad-9be3-7ec792bf680c" style="width:31.25%" class="column"><figure id="0f0d34be-2ad1-466d-823a-5b07e627b375" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/61a2baa76fb56ac14551bc26/master/w_1280%2Cc_limit/image003.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/61a2baa76fb56ac14551bc26/master/w_1280%2Cc_limit/image003.jpg"/></a></figure></div><div id="5607e01a-21f2-4be2-a687-404d95d6e7bd" style="width:68.75%" class="column"><h2 id="49ed0175-e658-4438-8171-b5647b9bd140" class="">20<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Wet Leg - Wet Leg</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="2fee7e96-83c7-45b9-9e0a-abe7fe0f0acc" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Would you like us to assign someone to worry your mother?</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="0a0ade41-53fb-4ac3-9016-5f9428326a66" class="">When Wet Leg was nominated for a Grammy this year, I saw a lot of people on Twitter confused – ”who are these people?” This surprised me – my peers and I have spoken frequently and highly of the duo’s debut. I got to see them this summer, and was blown away by their energy, one that is captured even on a studio album. Just check “Ur Mum” for a famously long, loud scream if you don’t believe me.</p><p id="c4c6b108-314c-4866-a5f5-5ffdf3e95702" class="">The group is unflappably and confidently dynamic, embracing well-worn, grungy guitars and drums wherever they can. “Oh No” is perfect in this regard, with its drums materializing to amp up the song’s heart rate. In a way, the album’s consistency in this regard really does encapsulate the “fucking Zen” referenced in this track.</p><p id="6230c2c3-162a-4997-8ddb-f4bb37f11980" class="">Wet Leg is not locked into a punk-adjacent rock mindset. On “Loving You,” they get a little bedroom, singing “I don’t want to meet your girlfriend” like Sophie Allison’s voice was just stolen right from her. “Chaise Longue” is much surfier, while “Convincing” feels like a chilled-out Hole track.</p><p id="c24e48ef-a108-4046-b2f4-671edc3864ba" class="">Lyrically, <em><em><em><em><em><em><em>Wet Leg</em></em></em></em></em></em></em> is selling what’s in the window at the store: what you see is what you get. It is unsurprising that their music brims with meditations on the feminine, reviewing relationships with kicks and strums. In “Wet Dream,” we see an omniscient narrator who sees beyond the veil of dreaming, seeking to understand her own characterization in the minds of others. The low male voice in the background of the verses is a very nice touch here, as are the synths and cymbals that lurk menacingly beneath the track.</p><p id="f8f8d4c8-c154-46f6-9a69-042d2d18ce1d" class=""><em><em><em>Favorite Song</em></em></em>: “Being In Love”</p></div></div><div id="ca083294-5a9c-4a0b-9c42-0c50d1fa225f" class="column-list"><div id="82aaa6a4-ed81-445f-87e7-ca2cc4e57ce8" style="width:31.25%" class="column"><figure id="a593a2ea-7771-4ac8-b35c-8e77b7053973" class="image" style="text-align:left"><a href="https://s3.amazonaws.com/media.thecrimson.com/photos/2022/11/08/070311_1359414.jpeg"><img style="width:528px" src="https://s3.amazonaws.com/media.thecrimson.com/photos/2022/11/08/070311_1359414.jpeg"/></a></figure></div><div id="a3fd4ac6-4911-4c3e-afb0-89a631d894fe" style="width:68.75%" class="column"><h2 id="a7953818-978a-4c6a-b94f-a892e3ec64e3" class="">19<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Alpha Zulu - Phoenix</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="1b2573fa-34f5-4394-bfd4-0a5390d3f96d" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Idolized, canonized.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="13638aca-a626-4311-85c5-e1768c993ae5" class="">This is the year’s best Weezer album. At least, that’s how I’ve taken to describing it. It’s dripping with these cliché moments punctuated by annoying </p><p id="430696f7-ff91-46e1-8b8b-2bbefc2abebc" class="">And yet, at the heart of Weezer’s is a genuine desire to just make good albums. And where they fail, Phoenix succeeds. The “Woo ha / singing Hallelujah” couplet in “Alpha Zulu” makes me cringe every time, sure – but the break into “Why choose your body over time?” is terrific, tickling the same guilty pleasure</p><p id="e33c65cc-69f9-4ba1-9674-1e0a717f0cbf" class="">I don’t believe in guilty pleasures, though – a coward’s idea. You’ll see plenty of albums on here that don’t deserve to be on a Best Of, but that’s not what this is. So if spacey vocals, slick basslines, and popping guitars aren’t your thing, I’d steer clear of this album – it’s loaded up with those.</p><p id="53eb463b-0ac1-4830-9f7f-ba72c98a8df8" class="">Me? I love the old-school cheese. Thomas Mars knows this, loopily singing about indulgence on “Season 2” before painting a picture of the hole left by nostalgia on “Artefact.” This whiplash makes <em><em><em><em><em><em><em><em><em><em>Alpha Zulu</em></em></em></em></em></em></em></em></em></em> reminiscent of <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>The New Abnormal</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>, albeit in a Bizarro world kind of way. But the falsettos land, the synths are synthing, and the perspective is clear.</p><p id="9937397e-a940-4b19-a501-79e9a767d896" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Identical”</p><p id="b6a5d04a-76c6-412c-b4ab-7c1192dbed57" class="">Edit: <a href="https://www.thecrimson.com/article/2022/11/8/phoenix-alpha-zulu-2022-album-review/">Writing for the Harvard Crimson</a>, Clara Nguyen calls the album a “soaring rebirth” for the band. I’m furious with myself for not coming up with that one!</p></div></div><div id="43f493c5-1d55-4a0f-9bce-62a66c0cd834" class="column-list"><div id="3b840564-d6da-4a43-80a1-b4dcf18f1868" style="width:31.25%" class="column"><figure id="2d519523-2610-4f10-bc70-eee44348781d" class="image" style="text-align:left"><a href="https://f4.bcbits.com/img/a3874459819_10.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a3874459819_10.jpg"/></a></figure></div><div id="22299188-6aaf-4629-9813-e7d645ffc877" style="width:68.75%" class="column"><h2 id="41f32a29-faaa-4860-a471-8caa8eea4ad5" class="">18<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Ants From Up There - Black Country, New Road</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="53326391-b47b-44e1-8fef-157806788b98" class=""><em><em><em><em><em><em>I’m leaving this body and I’m never coming home again.</em></em></em></em></em></em></p><p id="24887d09-e74b-4f8a-972f-46ac0425c7c6" class="">It’s always exciting to see a group of young people get together to build a brilliant project. That happened in 2021, when I heard BC,NR’s debut, <em><em><em><em><em>For the first time</em></em></em></em></em>. The concise, noisy project was feverish and hectic, filled with horns, strings, guitars, and a voice that’s gotta be the result of typical English chain smoking.</p><p id="311b87d3-1f61-43a7-88de-6548d135ee21" class="">On their new album, the band sprawls out much further, turning maximalism from a style into a paradigm, giving us a birds eye view of their lives and music. The album is longer, bigger, and bolder, punching through the “Intro” into “Chaos Space Marine,” a ticking time bomb of the inhuman: metal hands, worms, and what must be a reference to either Halo or Doom.</p><p id="73da1d1d-8fbf-4a74-b3df-4f361760e83f" class="">The band paints with a broad brush, coating most of their songs in a stretched palette. “Good Will Hunting” starts with a wiry transmission before its big drums hammer in. The saxophone on “Haldern” is expansive, generously providing space for piano in between its deep breaths.</p><p id="b12650c4-0f45-4a8c-93ce-e998e5170a35" class="">I don’t like <em><em><em><em>Ants</em></em></em></em> as much as the bands debut, but it’s still a terrific follow-up from an inspiring, intriguing group. While singer Isaac Wood’s departure is a shame, it’s written all over this album, and I’m optimistic about the band’s ability to plan and work around his absence going forward.</p><p id="ba620f36-b81f-4b9e-978d-062000a27b6f" class=""><em><em><em><em><em>Favorite Song</em></em></em></em></em>: “The Place Where He Inserted the Blade”</p></div></div><div id="d1f5fb3f-c4e4-40ad-b2c5-ed7c7df52201" class="column-list"><div id="22ae2a41-0994-439a-b7d1-0632b279be22" style="width:31.25%" class="column"><figure id="a8dec5b8-f75e-4b97-9fe0-d8856e39f7be" class="image" style="text-align:left"><a href="https://f4.bcbits.com/img/a1483089310_16.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a1483089310_16.jpg"/></a></figure></div><div id="d8a3972e-06d8-4849-9d7c-3a681aa12827" style="width:68.75%" class="column"><h2 id="6a08db21-2b81-460c-98ed-6757dca0ebe7" class="">17.<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong> rainbow music - ghost orchard</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="93523061-750b-4ce0-8b4d-c11880f2c2b0" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Show you what I find.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="817dff66-69ff-45d9-820d-9a5df757a01d" class="">I mean, this thing was just made for me. It’s got the voice pitching and production quality of underscores with the looping guitar and languid vocals of Phil Elverum’s work. Glitchy trips of acoustic guitar and warbled piano spin across Postal Service drumbeats, and the attention paid to production is entrancing.</p><p id="074e0359-1351-4ba2-a910-8289dbdbc1d0" class="">That’s all I really have to say about this one. Loved it.</p><p id="ceb94f6f-16d8-4c05-8dd7-7e0bd7958551" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “bruise”</p></div></div><div id="271f3bf0-7e01-4253-b1af-98ebd0a8c8d2" class="column-list"><div id="29b8c776-d6a6-4b71-8d28-5638e257615a" style="width:31.25%" class="column"><figure id="065132ec-58a4-4bba-8b5c-659b2aa7250f" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/6205591b1038e82f029e397d/master/w_1280%2Cc_limit/Orville-Peck-Bronco.jpeg"><img style="width:528px" src="https://media.pitchfork.com/photos/6205591b1038e82f029e397d/master/w_1280%2Cc_limit/Orville-Peck-Bronco.jpeg"/></a></figure></div><div id="55a6eb3a-7a43-420d-aed9-7bb7fa2a739d" style="width:68.75%" class="column"><h2 id="66592605-836f-4891-a337-dbf0004545aa" class="">16<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Bronco - Orville Peck</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="4397a503-c07f-405e-89c8-2af1ae28c3fe" class=""><em><em><em><em><em><em><em><em><em><em>Something ‘bout a horse and a man and a Cadillac.</em></em></em></em></em></em></em></em></em></em></p><p id="5f84c3a6-0b3f-4b60-a963-3c652269d432" class="">What can I say? I’m a sucker for a cowboy’s dulcet tones. Orville Peck’s work has always examined masculinity through a hyperfocused lens, a Marlboro Man outlook on relationships and destiny. This lens, of course, comes through a deconstructed myriad of different country sounds.</p><p id="05d0f423-fb91-4af3-ba53-072d72284e72" class="">Of course, there’s the unavoidable steel guitar on “C’mon Baby, Cry,” the banjo picking on “Hexie Mountains” and the trumpet on “Iris Rose.” The hollow stadium sound of “Trample Out the Days” and the rowdy guitar of “Bronco” and “Any Turn” draw an image of a lonely man rubbing racetrack dust between his fingers one last time. To serve this emotional angle, Peck sprinkles in some beautiful ballads, such as the piano and string-driven “Let Me Drown,” a track whose orchestral backing lends to its cinematic tragedy.</p><p id="741182e1-32a8-4fed-8a02-502f22b2aed6" class="">As good as the instrumentals may be, <em><em><em><em><em><em>Bronco</em></em></em></em></em></em> is fundamentally driven by Peck’s out-of-this-world vocal performances. He maintains a seductive baritone throughout the album, entrancing the listener with a husky whisper on “The Curse of the Blackened Eye” and “Lafayette.” His greatest moments, however, are a rejection of this stoic cowboy drawl, which he juxtaposes with his fearlessly emotional bursts into his higher vocal registers. Those moments are all over the album – “Kalahari Down” features a terrific one, as does “The Curse of the Blackened Eye.” </p><p id="5e834a03-9c69-41ed-a3c9-139a6487ac29" class="">The imagery Peck conjures with his voice and instruments would be more than enough for any album, but it won’t quite do for his purposes. Instead, he doles out scenery through a commanding approach to writing, spinning stories of widows, racing, and a West that’s far from won.</p><p id="99d9693e-3516-42be-b389-235f7f1651b4" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Kalahari Down”</p></div></div><div id="24688e9c-c41a-4630-bfbc-4944d183fa91" class="column-list"><div id="a5a75498-1587-4569-9580-fb9637751f00" style="width:31.25%" class="column"><figure id="289ddb77-99f7-41bc-a300-36d47a2a81f0" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/62b7d5a75b6a7bdd3ea30baa/master/w_1280%2Cc_limit/nnamdi-album-art-please-have-a-seat.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/62b7d5a75b6a7bdd3ea30baa/master/w_1280%2Cc_limit/nnamdi-album-art-please-have-a-seat.jpg"/></a></figure></div><div id="373ea1ca-38f9-434a-91ff-f4da3087a8e5" style="width:68.75%" class="column"><h2 id="cd0646b3-bba1-4eed-91e0-0a2f0c874847" class="">15<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Please Have a Seat - NNAMDÏ</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="fc278dcd-94c4-400c-9514-2e486c4c3a16" class="">I’ve gone back and forth on this album a lot. My biggest problem is that I don’t have a lot of creative thoughts on it – NNAMDÏ is a divine producer, spinning drums out like wayward comets, and a clever wordsmith with a penchant for emotion and imagery. </p><p id="ebedce05-7f23-48c2-a6c8-6cc5578b5655" class="">The album is a testament to the interlocking pieces behind a piece of music – the genre, the lyrics, and the way songs interact with one another. To serve this, the album’s last song “Some Days” ends with the same refrain as “Ready to Run,” its first. This connective tissue is present throughout <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Please Have a Seat</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>, fluidly binding songs together.</p><p id="7e81e5b0-e706-48c6-9b2b-d26fa1700ead" class="">That doesn’t mean songs are undetachable from one another, or that they can’t be cyclical in their own right. “I Don’t Really Wanna Be Famous” and “Dedication” both slowly build to catchy vocal riffs overlayed on top of themselves repeatedly, deepening the listener’s connection with the words being sung.</p><p id="e572a4e1-402a-44d0-a221-9c24fac542ac" class="">Armed with a stunning olio of drums, NNAMDÏ steps from genre to genre with ease. Sunny guitars and earworms make up a majority of the landscape, but there are occasional changes. The digital “Grounded” sounds like it’s being sung by GLADOS, only brought back to earth by one of the album’s bookend skits, advertisements for a furniture company that allude to the album’s title. “ANXIOUS EATER” moves between a slow-snapping flow to a psychedelic slap, adeptly imparting a rollercoaster’s whiplash.</p><p id="ecad3103-a62f-4d1e-9829-e511d4db7d9f" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Benched”</p></div></div><div id="b9fdbc2f-f701-45ba-9dac-914faad3bb08" class="column-list"><div id="60bdde61-6ea3-40cd-9053-1f074b11fa7f" style="width:31.25%" class="column"><figure id="4442188a-0a48-44ab-8fce-1beef2b20b75" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/6183f064ebc21d2eb6916d29/master/w_1280%2Cc_limit/Charli-XCX-Crash.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/6183f064ebc21d2eb6916d29/master/w_1280%2Cc_limit/Charli-XCX-Crash.jpg"/></a></figure><p id="3197bfb2-2c3d-4a1f-aafb-ff6ef8d14732" class="">
+</p></div><div id="7c34a6be-d230-4a00-b297-f8a10c6a1754" style="width:68.75%" class="column"><h2 id="b50eebbf-6d7f-4130-8702-9ed5d48c1960" class="">14<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Crash - Charli XCX</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="e4384c32-02e3-451c-8fe3-46c68159bd58" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Overloading when I’m looking in the mirror</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>.</p><p id="4ece4be8-4164-4b2e-9c36-5c3b9460ec8b" class="">A high octane, blisteringly sexy album, <em><em><em><em><em>Crash</em></em></em></em></em> has out of this world production, a perfect capsule of the virtues of the contemporary pop scene. Synths dominate the landscape, overwhelming only where it’s appropriate. </p><p id="41a39b75-b31e-4976-8053-6c1f17de0699" class="">Charli XCX has always made hot girl music – 2020’s <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>how i’m feeling now </em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>was a frustrated mantra of a woman trapped inside. Now that she’s out, we can’t stop her! But <em><em><em><em><em>Crash</em></em></em></em></em> feels more nonbinary than her previous work, perfect for beast modes and bad bitches alike. It’s a series of winking stories, vacillating between flirtation and anguish with ease.</p><p id="33c6d167-8685-404b-a2c2-c253b9fce978" class="">There’s something about her delivery. On “Move Me,” she is howling into an abyss, a destructive force unable to change her own nature. Drawn in by the strings of “Baby,” she is seductive and fun as her voice sits atop an “Mm” refrain that’s on constant repeat. (Had to). And the bubbly “Used To Know Me” would be perfect for a K-pop girl group, with plenty of space for a variety of voices. Despite this, the artist is tragically alone for the album’s duration.</p><p id="6a1f519e-b7c9-4387-bebf-7e3049208e71" class="">Well, that’s not technically true. Charli chooses her collaborators excellently, but doesn’t have much company on <em><em><em><em><em>Crash</em></em></em></em></em>. While she knows her velocity, she has nobody to share in the joyride with her, always a point of difficulty for the brilliant artist.</p><p id="a6c65260-aefb-4a28-a88d-4b872b0d6757" class="">I’ll speak more about one of her collaborators later – another artist who put out a cataclysmically fun record this year. Perhaps, caught in the maw of loneliness, a turn towards mainstream pop can be a reassuring one. It worked for me.</p><p id="15fc18c6-b3e4-4285-8a2b-acccde9cfa03" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Track</em></em></em></em></em></em></em></em></em></em></em></em></em></em>: “Move Me”</p></div></div><div id="67018ab3-aefd-43f7-bc98-c20f317d4e29" class="column-list"><div id="c857e8e1-79d9-4427-9ec8-b2ab49e8759e" style="width:31.25%" class="column"><figure id="3a13ab0d-9e6e-4725-be8d-10acbce34e63" class="image" style="text-align:left"><a href="https://spectrumculture.com/wp-content/uploads/2022/09/charley-crockett-waco.jpg"><img style="width:528px" src="https://spectrumculture.com/wp-content/uploads/2022/09/charley-crockett-waco.jpg"/></a></figure></div><div id="9874d1f1-c09f-4d25-b40c-e1bf35f09c7c" style="width:68.75%" class="column"><h2 id="088b5f0b-abb1-42de-831d-4e9fc915837d" class="">13<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. The Man from Waco - Charley Crockett</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="84be8d80-0ae1-4ab4-b16f-fb09eb855f50" class="">Say what you will about country music, but if you don’t go looking for the good stuff, you’ll never find it. That seems to be Charley Crockett’s philosophy, at least: his new album is a string of stories about explorers, lost souls, and the rolling world of southern Texas.</p><p id="19b037fa-ff6c-481b-891f-0f496d5a125d" class="">His Americana stylings are in the sphere of similar folk stars, and his guitar playing is just immaculate. “The Man from Waco” has an irresistibly familiar bass line, and the three songs about the Man from Waco soundtrack a classic, imaginary spaghetti western. Listening to “Time of the Cottonwood Trees,” I’m impressed and disappointed that it came out so recently. Really, it has all the makings of an age-old classic, precise and emotional. The “aw, shucks” aspect of the pickup truck and the humility of the songwriting are endearing and as sweet as honey. </p><p id="248ba567-1805-435b-8d16-cf75e867db65" class="">Other country staples are in here: a vaudeville depression is cast over the album on “I’m Just a Clown,” which is a paradoxically jaunty and exciting song, particularly when Crockett sings “I’m so lonesome I should charge a fee.” Pagliacci would be jealous, I’ll say that much.</p><p id="8fbb1a8c-3ef7-47c1-914a-05afa26130a4" class="">The album is punctuated with natural imagery, such as on “Trinity River,” a zesty joint that’s begging you to hop out of your chair and dance along. “Horse Thief Mesa” sees our formless protagonist heading into a canyon, with an unknown fate before him. If you’re a fan of Johnny Cash or Marty Robbins, you’ll love Crockett’s latest.</p><p id="d1daf453-f246-4cd2-b9a3-6190570886c0" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “I’m Just a Clown”</p></div></div><div id="fa852b19-2e35-4d39-a4b5-907c109b6593" class="column-list"><div id="2e682e15-1371-4c77-ae68-23c6a9f9648b" style="width:31.25%" class="column"><figure id="dbc719ce-463d-4798-85a3-abe7d70ee978" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/635bd5c994075a586409fc23/master/w_1280%2Cc_limit/Brockhampton-The-Family.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/635bd5c994075a586409fc23/master/w_1280%2Cc_limit/Brockhampton-The-Family.jpg"/></a></figure><p id="dbc05ef5-f328-48af-a87f-409ff0d6de95" class="">
+</p></div><div id="c99e218f-e0d6-4d34-8598-3d3a00606df0" style="width:68.75%" class="column"><h2 id="cc021436-e0b7-45da-8516-84113f4d5fbf" class="">12<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. The Family - Brockhampton</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="db085a69-59ec-4793-9d9a-787ee483fdce" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Don’t ask me if the crew is still talking.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="ae0c3202-d97c-4cba-a0d4-4b46c4c3f974" class="">After a brilliant, genre shifting trilogy, a narcissist, together with his posse of collaborators, spends years clawing at the spotlight, bogged down in his persistent self-mythologizing. His social media is erratic, and his broken promises of new releases are viewed with increasing disdain.</p><p id="5b6dc4f4-ce77-489e-afeb-0a71e11ce243" class="">Kevin Abstract hasn’t done the Full Ye (at least, not yet), but I think it’s appropriate that The Family arrives at a decisive downturn for West’s career, showing us that our influences never truly disappear, for better or for worse.</p><p id="599069ac-4a2b-4342-b6d7-b0b10247b4f9" class="">Brockhampton met on a West forum – the story is well-known by now and I doubt it bears repeating. Their sincerity, enthusiasm, and shared appreciation for a man who had centered his career around the relationship between art and artist were seen by many as an invitation into the boy band’s Van Nuys residence. “Parasocial” is thrown around a lot, but Abstract directly addresses Brockhampton’s relationship with their fans on “Basement,” where he notes that familiarity with songs and videos is not the foundation of a family.</p><p id="785f209b-a30a-4260-b612-f8b386e01ff4" class="">No, the album’s title is meant to cut out the listeners, the labels, and even the music from the scenery. <em>The Family</em> is about a very specific group of people, told through the eyes of a single member.</p><p id="ffba4fed-852c-4694-a030-6fdba2cbc3c6" class="">It’s very telling that Abstract spends a majority of the album, which essentially functions as a solo project, focused on trials and tribulations within the group. Brockhampton has always been very transparent about its decisions, from signing with RCA to the expulsion of Ameer Vann. But Abstract reconsiders this transparency, affirming that his desire to turn trauma into content was a big part of the band’s downfall. Perhaps the mythologizing is too much – better to focus on the music.</p><p id="3d92050f-0d19-4915-a28e-4349e4576f20" class="">What music it is. The personnel on the album is a stripped-back subset of Brockhampton’s members, but there’s still a great variety of tracks. The drifting “Any Way You Want Me” wrenches at the listener with its slow guitar and echoing vocals, a glass of whiskey at the side of the hearth. “All That” is a classic boy band staple, and the album has several songs that sound like jubilant finales, such as “Good Time,” on which Abstract declares “the show is over,” and the trumpeting “The Ending,” which still makes me tear up.</p><p id="338c5532-bb6f-4b0c-b2c9-2f51917c555c" class="">And, of course, the chipmunk soul of “Take It Back” and the gritty gospel of “Gold Teeth” are Ye all over – yet another reminder that Abstract may have a more difficult time separating himself from his musical past. As he says, “you can’t become unfamous.”</p><p id="fa97a507-8c57-453f-a8d6-a823d4546805" class=""><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em>: “Any Way You Want”</p></div></div><div id="f2573c76-8497-4c54-9130-c1ef204476d3" class="column-list"><div id="e46b2e3a-9b08-4361-a2f2-cc67ab14372e" style="width:31.25%" class="column"><figure id="f2a15a1f-2ae1-4124-aef4-78e011e44596" class="image" style="text-align:left"><a href="https://f4.bcbits.com/img/a0825681732_10.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a0825681732_10.jpg"/></a></figure></div><div id="bc723113-8db3-48f6-b88f-6a537895d305" style="width:68.75%" class="column"><h2 id="157df87c-0c32-48ba-a922-e1551cac040e" class="">11<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Blue Skies - Dehd</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="d4dde47f-4c30-4207-8f79-1333cd89a4cf" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Memories were good, now they’re gone.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="de5c3ad3-dc4f-4238-b3d9-d5fb50a0c5d3" class="">I struggle to define <em><em><em><em><em><em><em><em><em><em>Blue Skies</em></em></em></em></em></em></em></em></em></em>. It’s definitely indie, but that doesn’t really help at all. Its songs are so varied, and yet they still cleanly move between one another, and they’re all terrific in their own ways.</p><p id="6a918395-1f0a-4646-b675-6f8ba440a584" class="">Some of them are outright bops, like… oh, yeah, it’s just called “Bop.” The group really called it with that one, building a song with a silly little chorus that’s just teeming with fun. “Empty in My Mind” is similar, shouting at you over undulating rhythms and a staid guitar pattern.</p><p id="4fdf3e2c-bff7-4bcd-8176-78aa286ed23f" class="">The best songs are the emotional ones. The gimmick on “Waterfall” – the exhalations before “waterfalls” – pulls you closer with every breath. The simple sincerity of “Hold” bleeds love, a Magnetic Fields B-side with a prickly guitar.</p><p id="55c6522e-dfe5-4a92-ae0e-697aa798b7e7" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Bad Love”</p></div></div><div id="2c15ded2-0466-41ee-856f-a2dacad7b401" class="column-list"><div id="f8f73427-8db4-40bf-a639-f080d28e05be" style="width:31.25%" class="column"><figure id="36164b5f-e48d-45eb-aa6e-629d6780b85a" class="image" style="text-align:left"><a href="https://f4.bcbits.com/img/a1825072428_10.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a1825072428_10.jpg"/></a></figure></div><div id="20a41823-9f53-4987-bcde-6c596b112b41" style="width:68.75%" class="column"><h2 id="88bf1c7d-d5a3-404a-88ea-703e6a5e688b" class="">10<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Fair Exchange, No Robbery - Nicholas Craven, Boldy James</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="65c3018b-264b-4ac8-9176-e258613e12b5" class=""><em>Real hustler, I can sell a vampire blood.</em></p><p id="d3b9b9e0-cda4-480c-9dce-5e019ca9ce04" class="">Effortlessly mellow. Suitably calm. Lyrically violent. The world of Nicholas Craven and Boldy James is a world in conflict with itself, one where intricately told stories of flipping pills are juxtaposed against masterfully flipped samples.</p><p id="669ab433-324d-47c9-aa90-4d6d730ee29d" class="">Craven’s production on this is the setting. It is a rainy day, a snowstorm, a placid lake nearly frozen over. His choice of samples is a concentrated bundle of the 70s, distilled into a tall, cool beverage. The loop of “and I never would be missed” on “Town &amp; Country” makes the song a hazy room. “Designer Drugs” features an extremely clean brass, and even though I can’t tell what’s being said, I can’t imagine “You Ain’t No Menace” having the same impact without its warbled vocal sample.</p><p id="090e47be-9fd8-442d-b1b6-a46f27ca988d" class="">But if Craven’s production is a still lake, James has a pocketful of rocks to skip. He demonstrates remarkable diversity without straying too far from the source, walking around the shore and tossing stones strategically. On “You Ain’t No Menace,” his delivery of “Work white as a golf ball, I could kick it or punt it, tip it or bunt pit, dump it off, hit it or touch it” is the kind of flow I consistently run back to relisten to.</p><p id="4c63f044-ba9d-4bf6-86cd-dabdb27a0b0d" class="">Their collaboration also results in some terrific storytelling. The western wake-up trumpet and tense loops of “Monterey Jack” provide an appropriate backdrop to James’ cowboy lawlessness. “Stuck in Traffic” traps listeners in its walls, with James rapping about inescapable situations over an unavoidable refrain. </p><p id="a8a13004-6655-4db2-82c3-41af68a249f7" class="">Occasionally, the two switch roles. On “0 Tre Nine,” the chipmunk soul sample energetically allows James and guest Gue Wop to bounce off one another, kept afloat by the song’s persistent piano. And they really switch up the formula with “Scrabble,” a beat that bobs up and down around James’ even delivery.</p><p id="ab21a32c-2cf2-4a9d-941b-d0b7f9356fab" class="">I’d recommend a glass of whiskey to accompany you through <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Fair Exchange, No Robbery</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>. It’s cool as hell, goes down easy, and invites you to be at least a little buzzed – in an empty landscape, what else are you gonna do?</p><p id="a0636373-fb81-4f54-950e-794023b8b8da" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Town &amp; Country”</p></div></div><div id="8835bb2d-f065-4694-b707-f426adaf07c1" class="column-list"><div id="0ac1add4-fb85-4e28-82ca-da5b4148a417" style="width:31.25%" class="column"><figure id="cedb6b66-786a-46d5-99e2-6afc70df66db" class="image" style="text-align:left"><a href="https://optimise2.assets-servd.host/best-fit/production/albums/jean-dawson-chaos-now-Cover-Art.png?w=1200&amp;h=1200&amp;q=100&amp;auto=format&amp;fit=crop&amp;dm=1665133619&amp;s=456b0d7dbd4fbebc83800e7c7d69f57a"><img style="width:528px" src="https://optimise2.assets-servd.host/best-fit/production/albums/jean-dawson-chaos-now-Cover-Art.png?w=1200&amp;h=1200&amp;q=100&amp;auto=format&amp;fit=crop&amp;dm=1665133619&amp;s=456b0d7dbd4fbebc83800e7c7d69f57a"/></a></figure></div><div id="5831d260-8802-4d14-93ca-015693244640" style="width:68.75%" class="column"><h2 id="ae4901c7-7906-424e-b605-48c698d26408" class="">9<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. CHAOS NOW* - Jean Dawson</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="65c3018b-264b-4ac8-9176-e258613e12b5" class=""><em>Fuck y'all looking at?</em></p><p id="9553766b-7e01-4437-b64b-98a28ffb71c0" class="">This year, I was lucky to finally listen to <em><em><em><em><em><em><em><em><em><em>Pixel Bath</em></em></em></em></em></em></em></em></em></em>, Jean Dawson’s spellbinding 2020 release. I was also lucky enough to see Dawson in concert, and the energy he brings to his projects is all real, baby. He’s a lightning rod, and when I listened to <em><em><em><em><em><em><em><em><em><em>CHAOS NOW*</em></em></em></em></em></em></em></em></em></em>, I was shocked by the consistency he brings to his music.</p><p id="bc01ad27-5530-4c2e-9710-143d920dc5ce" class="">His newest album, appropriately, is less focused than the text-based adventure of <em><em><em><em><em><em><em><em><em><em>Pixel Bath</em></em></em></em></em></em></em></em></em></em>. As soon as “*” punches into “THREE HEADS*,” you know you’re in for a wave of banger after banger. But Dawson knows how to control an album’s energy, and brings an acoustic guitar into the fold for the cathartic “GLORY*.” Only he could make me smile with tears in my eyes at lines about being so drunk he can’t stand.</p><p id="c8a59ffa-4098-4f05-a5de-5b1efb36aae4" class="">The conflict between thrashing and acoustic guitars all over this album are the perfect backdrop to Dawson’s bipolar vocal performance, where he screams and croons with aplomb. He has the unwavering ability to keep me invested, and I’m greedily surprised when, for example, he brings back the guitar lick from “Clear Bones” to feature on “PORN ACTING*.” </p><p id="3feccbba-4208-47b1-a3a2-d82918e2af4f" class="">I don’t call this approach a bipolar one lightly: the haunting, glitched up “POSITIVE ONE NEGATIVE ONE*” is about a metaphorical man in the attic, a description of Dawson’s internal conflict as “half [his] body is hanging out the window.” The dual perspectives of upstairs and downstairs, positive and negative, strike me as Dawson’s assessment of his mental health and songwriting process.</p><p id="d175a30d-9239-4ceb-a440-bd744f5d76d6" class=""><em><em><em><em><em><em><em><em><em><em>CHAOS NOW*</em></em></em></em></em></em></em></em></em></em>, like <em><em><em><em><em><em><em><em><em><em>Pixel Bath</em></em></em></em></em></em></em></em></em></em>, is a work of beautified catharsis, a digital dose of adderall that keeps the listener engaged throughout with its addictive assortment, all the way up to “SICK OF IT*,” a final, brilliant bop before the introspective, explosive closure of “PIRATE RADIO*”</p><p id="9e47f243-35ea-4be2-ae21-e00ff81d18e8" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em></em>: “GLORY*”</p></div></div><div id="0b0a77b6-1c70-4182-b258-8a8a2a1b0f51" class="column-list"><div id="b1677e24-cd7e-4731-9205-c03e8aeb5ea1" style="width:31.25%" class="column"><figure id="e9761bb9-ab0a-449c-98fa-4cc89574aed0" class="image" style="text-align:left"><a href="https://f4.bcbits.com/img/a1316246022_10.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a1316246022_10.jpg"/></a></figure></div><div id="86d4022f-e692-4970-8a1f-b50289722816" style="width:68.75%" class="column"><h2 id="97d1a9b9-7c3f-4781-9be7-629c33d76e11" class="">8<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. World Wide Pop - Superorganism</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="3ad01ae8-b449-4551-bde3-792699a940fe" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Earth people need to get along.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="e748e6ad-2ae1-4b6f-8d90-083f95312c73" class="">Know this now: Superorganism is annoying. They’ve been annoying since their 2018 debut, and four years later, they’re even worse. Luckily, I love this fact about them: they’re fun, fearless, and seem to be driven by a desire to unite humanity into an organic singularity.</p><p id="9d48d0a5-7671-4887-bf2d-d36354d7e941" class="">This annoying nature comes from a few different avenues. First off, songs are a plunderphonic circus, samples and sounds whizzing by. Phones ring, bubbles pop, radios seep into tracks. “Flying” sounds like a spaceship tearing through hyperspace. They’ve got acoustic guitar, synth, and probably a thousand different tracks on whatever DAW they’re running.</p><p id="1bc7b929-195f-4abf-a8c9-7dfbebfba1d7" class="">Superorganism is also obsessed with the strength of a collective, equipped with a desire to bring the world together for some fun dance tunes – and a greater social necessity. This is best represented on songs like “Put Down Your Phone” and “Don’t Let The Colony Collapse,” which speak to social isolation and a need for interconnectivity, two subjects I think are on everyone’s minds these days.</p><p id="cafb3052-eb4a-4885-b800-b56b867447ac" class="">Don’t get me wrong – the album is incredible. The annoying part of it, I think, is a huge part of that. You can’t be catchy without being a little grating, but Superorganism avoids repetitive hooks by injecting a coterie of sound effects into each song. I find it difficult choosing my favorite moment, but it’s either the sneezeplosion at the start of “Everything Falls Apart” or Nardwaur’s “keep on rocking in the free world,” a directive of which Superorganism have become champions.</p><p id="d506465f-75e2-496e-a111-2f8262d4bb39" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Oh Come On”</p></div></div><div id="50c02763-0e70-436b-99f9-0aab2224f9e6" class="column-list"><div id="41b14d0e-de3e-4924-85f2-59f627963054" style="width:31.25%" class="column"><figure id="1b1427be-7713-4318-92f1-db4b1e5c7eea" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/624471872afbc1aa4dab0c4c/master/w_1280%2Cc_limit/Maggie-Rogers-Surrender.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/624471872afbc1aa4dab0c4c/master/w_1280%2Cc_limit/Maggie-Rogers-Surrender.jpg"/></a></figure></div><div id="04c76fae-6c5f-492f-b9c9-0f507ddb53eb" style="width:68.75%" class="column"><h2 id="03d9be98-0e75-4cf2-9acc-8a8398e242c8" class="">7<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Surrender - Maggie Rogers</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="ecad4038-08c7-4f74-aba9-431822ca571b" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>I got a friend – and she’s got a friend, too.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="365409ac-2ea4-45a2-a6e6-d4ccccbe5a76" class="">From the very beginning of <em><em><em><em><em><em><em><em><em>Surrender</em></em></em></em></em></em></em></em></em>, I knew it was going to be something different. Until now, Rogers has never been quite able to enchant me. But as soon as “Overdrive” comes into focus, a spell is cast and my ass is sat.</p><p id="abe09c43-2a22-4de2-acbf-eb8aff3b8480" class="">She’s playing with production in a way she hasn’t before. Her voice is soaring like it never has. What is going on here? Is this what happens when you complete a master’s thesis? You just suddenly get your shit together?</p><p id="5a3db131-5f2b-449a-981f-8d2b8482fe0c" class="">Of course not, and Rogers would be the first to admit that. <em><em><em><em><em><em><em><em><em>Surrender</em></em></em></em></em></em></em></em></em> is fraught with the difficulty of “getting it together.” Rogers is seen dealing with a depressed partner on the touching “Anywhere With You,” crashing into insecurity with question after question: “Would you tell me if I ever started holding you back? Would you talk me off the guardrail of my panic attack?” </p><p id="42b0f339-4719-454d-8196-4ca9c5b930ff" class="">The omnipresence of a fog that follows us around – the depression that is wherever we are – is a quality Rogers is keenly interested in. On “Begging for Rain,” she croons “I feel it all and I can’t stop it” as she desperate cries about navigating her turbulent emotions and their dismissal by those around her.</p><p id="a302a100-b0eb-4bfc-beb7-e8d28d179893" class="">In her despondent confessions, she makes for a relatable heroine, a soothing voice to guide us through tough times. The simple guitar of “I’ve Got a Friend” provides a tear-inducing backdrop to Rogers’ assurances of friendship, love and understanding. </p><p id="c046dbd4-e6f1-44e4-aee7-e0e026cc0ac4" class="">Every song on here has a moment of catharsis, so I’ll try to stick to my favorites. “Want Want” dials into a sleek choir before letting its guitars rip like Beyblades. The drums on “Honey” over the dripping vocals repeating the song’s title are sweet as you’d expect. Don’t forget “Shatter” – I weep every time she sings that Bowie line.</p><p id="a491505f-9dc9-4f07-902c-77c0e95622c1" class="">These explosions of emotion pepper <em><em><em><em><em><em><em><em><em>Surrender</em></em></em></em></em></em></em></em></em>, and Rogers manages and navigates them skillfully, never giving into them completely but never dismissing them outright. Her balance is commendable – as are her pipes!</p><p id="e0e46c58-a58c-4e19-8510-9a558913c89c" class=""><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em>: “Shatter”</p></div></div><div id="643a551d-69ec-4e80-9081-d2faa366edd4" class="column-list"><div id="e36655ee-f84a-49e7-9d36-88b04e757e61" style="width:31.25%" class="column"><figure id="762f0f22-0787-4e22-8fea-d8f6af50e7f3" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/627c1023d3c744a67a846260/1:1/w_600/Kendrick-Lamar-Mr-Morale-And-The-Big-Steppers.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/627c1023d3c744a67a846260/1:1/w_600/Kendrick-Lamar-Mr-Morale-And-The-Big-Steppers.jpg"/></a></figure></div><div id="8a1e2745-cc53-4885-9dfe-07124d33bdf8" style="width:68.75%" class="column"><h2 id="cc665c66-f19f-4e06-9270-79a2185ed8dc" class="">6<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Mr. Morale and the Big Steppers - Kendrick Lamar</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="2c3e573a-9de8-4249-b8e4-6fda5f60cf61" class=""><em>I care too much, wanna share too much. </em></p><p id="da4622b6-792f-4c80-8f98-3a8e3fd84ffe" class="">Kendrick Lamar has always been a spokesman of the times, a town crier for collective anxieties, traumas and conflicts. Some of the songs on <em><em><em><em><em><em><em><em><em><em>Mr. Morale</em></em></em></em></em></em></em></em></em></em> say this directly in their titles: “United in Grief” and “We Cry Together,” songs about abuse, pandemic, and Both of these songs appear in the album’s first half, which is direct in its presentation, laying out broad themes like rabbit traps. On the other hand, the album’s second half has more reflection on Lamar’s own artistry and experience, springing into snares on paths established earlier on the record.</p><p id="ad0a102b-a29d-465a-b4c2-44ef83bcbd71" class="">This two-handed approach serves to divide the art from the artist, something Kendrick has been better at than most of his contemporaries. But he plays with this division as well. He presents his own cousin both lyrically and vocally, both writing about Baby Keem and featuring him on the album. He explores the obstruction of masks, making observations that would be banal in another context but are amply supported by the album’s themes.</p><p id="7b846ecf-4e8a-44f7-a07a-b821e07c379a" class="">As always, Lamar is presenting a very clean array of vocal performances – his voice strains, pops, growls, and sways. And his guests are fantastic – Taylour Paige, Sampha, and Kodak Black are just a few of the great performances on a record full of memorable moments. With his vocals and guestlist, Kendrick focuses on the association between music and artist, deepening his own actualization without the navel-gazing self-obsession so many artists in similar positions engage in.</p><p id="0ec714a0-6a3d-4581-bef3-4ab27a90f096" class="">Lamar’s ultimate examination of the line between himself and his work is the self-reflective “Mirror,” on which he prefers to sustain himself and his own health over the music he creates. His apology in “I choose me, I’m sorry” is a gentle but firm confirmation to the audience. And yet, despite this, I don’t think we’ve seen the last of old Mr. Morale.</p><p id="76d4d785-a0fa-49ed-a26d-352543ac5716" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Mirror” (or “The Heart Part 5,” if you’ll allow it)</p></div></div><div id="3c3024b4-cf57-43fc-a0a7-461f12f5e466" class="column-list"><div id="002f958c-5241-44c7-a78d-3a3de390dee8" style="width:31.25%" class="column"><figure id="1c2a60ea-588d-49e6-a569-1b4bdac86b7c" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/6226d7aedd123e9e0e460a4a/1:1/w_600/unnamed.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/6226d7aedd123e9e0e460a4a/1:1/w_600/unnamed.jpg"/></a></figure></div><div id="2d7eef51-8569-41cc-99c0-eb273e8b3f8f" style="width:68.75%" class="column"><h2 id="bb4ff1ef-ef7d-4b1b-b89c-2739526eaea3" class="">5<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Omnium Gatherum - King Gizzard &amp; the Lizard Wizard</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="ce7532a1-878c-4a7a-820a-dfd8ccab0fb6" class=""><em><em>Oh, baby, I got persistence – I hold the pole position.</em></em></p><p id="5536680c-8878-47bd-899a-33fc44ec86bc" class="">That’s not a lie: halfway through the year, when I took stock of the year’s albums up to that point, this sat at number one on my list. Obviously, that’s changed, but it did force me to grapple with an unpleasant fact.</p><p id="6a3d2eba-2f76-4585-8f50-c67d1d34e686" class="">King Gizzard and the Lizard Wizard are my Grateful Dead. I hate it as much as the next guy, but the Australian group’s electrifying jams and ridiculous output have made it very easy to be a fan. The variety of that output is evident in their releases from this October – a three-album run of classic Gizz weirdness.</p><p id="49c4a3c0-40c2-42a1-ac82-d066f000516e" class="">However, nothing is more Gizz Classic than <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Omnium Gatherum</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em>, a behemoth of an album that marks the group’s return to studio sessions. They’re clearly happy to be back, as they rush through ideas in a precisely wound frenzy, incorporating a variety of delicacies along the way.</p><p id="41a500d9-0167-4bdb-9da9-15f361652643" class="">They’re addressing the same themes they’ve been covering throughout their career. On “Gaia,” we get an omniscient understanding of the role Earth plays in the Gizz mythology, and on “Evilest Man,” we get a pretty direct repudiation of one of the band’s most infamous countrymen. And I can’t listen to “Ambergris” without connecting it to the ecological MacGuffin at the heart of Avatar 2 – but I won’t take up time talking about <em><em><em><em>that</em></em></em></em>.</p><p id="a13f2df0-4f41-430e-91f4-ab19a9458f92" class="">Musically speaking, there are the psychedelic guitars, of course, best manifested on the thousand solos on the album’s epic introductory track, “The Dripping Tap,” which also includes the classic “Woo!” fans have become used to it. The band revisits <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Fishing for Fishies</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em> on the whimsical “The Garden Goblin,” and gets back to the digital <em><em><em><em><em><em><em><em><em><em><em><em><em><em>Butterfly 3000</em></em></em></em></em></em></em></em></em></em></em></em></em></em> on “Evilest Man.” In fact, I’m sure you could draw a one-to-one connection between individual tracks on this omnibus and their past releases, though I’m not sure I’m the right person for the job.</p><p id="c6f06734-8494-4fa1-91bb-d5764e985dba" class="">Their variety has long been impressive, and they have all the reasons in the world to hop in the studio and run back the same old songs (in fact, I think this is sort of what happened throughout Gizztober). However, Gizz is not only running through the old classics – they hilariously introduce a Beastie Boys side to their music on tracks like “Sadie Sorceress” and “The Grim Reaper,” two magical rap tracks. These new styles, demonstrating Gizz’s willingness and excitement to adapt, are the reason they’re one of the most exciting acts to follow right now: there’s a little something for everyone, but without sacrificing the band’s uniqueness and ingenuity.</p><p id="3ef046c5-5d08-47b8-9478-d680025687ab" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Magenta Mountain”</p></div></div><div id="2bf2fdc3-56fa-4048-a2b8-917bd473c033" class="column-list"><div id="8ccb4f09-335d-440c-a7af-46f20af44ecf" style="width:31.25%" class="column"><figure id="3d7cfe3b-121c-4c21-b650-68cf5b45e30f" class="image" style="text-align:left"><a href="https://pbs.twimg.com/media/FTDmWdXXoAEBiQL?format=jpg&amp;name=medium"><img style="width:1200px" src="https://pbs.twimg.com/media/FTDmWdXXoAEBiQL?format=jpg&amp;name=medium"/></a></figure><p id="0403ae04-fdb1-44c7-8169-7a3a8ea8d42a" class="">
+</p></div><div id="c7789550-535f-48b0-afae-2c257a2b6aed" style="width:68.75%" class="column"><h2 id="86cd1a83-03ac-48fd-936e-7f6e2be2b064" class="">4<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Hold the Girl - Rina Sawayama</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="d62593ba-a3f2-48b0-921c-ac4244f06d64" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>I’m not the girl I tried to be yesterday.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="3d2e0e23-7e01-4a6d-aa2d-da02cfc532a4" class="">While <a href="https://www.dailycal.org/2020/12/03/the-daily-californians-arts-awards-music-of-2020">I enjoyed</a> Sawayama’s 2020 self-titled album, I found its rock-heavy aspects to drag the compositions down with the unnecessary weight of thrashing guitars crowding out her natural charm. Fortunately, her new album is anything but a drag – it is elation itself.</p><p id="55565cb6-4a3d-438b-935e-230cf2b51a45" class="">On “Minor Feelings,” the first track on her 2022 release, she declares “All my life I’ve been out of place,” letting the guitar drop out and the bass vocals drop in. In this moment, the listener ascends into <em><em><em><em><em><em><em><em><em><em><em><em><em>Hold the Girl</em></em></em></em></em></em></em></em></em></em></em></em></em>, a triumphant record that harkens back to the pop music of a decade ago.</p><p id="a3112b30-072e-40ce-81cc-2a58035f23bd" class="">In a way, Sawayama is much like Gaga, whose influence can be heard all over <em>Hold the Girl</em>: in charge of her voice, her audience, her image and her craft. Even the thumping beat on “This Hell” is reminiscent of the persistence of “Born this Way” – appropriate, considering the similarity of the songs’ subject matter. Her selection of tracks is also reminiscent of Germanotta’s flexibility with genre, and she messes with convention on both the flashy “Frankenstein” and the somber “Send My Love to John.” (A quick aside: does anyone else insert the “stere-ere-ere-ereo” from “Pump It Up” into “Frankenstein”? Just me?)</p><p id="1fe1b495-68a6-4de5-b5c1-c8646f9f5e6b" class="">Throughout the album, Sawayama dotes on the listener with these electrifying indulgences: the soda can on “This Hell,” her vocal key changes on “Hurricane.” On the eponymous track, she slides into the final chorus on a thudding drum, stacking her vocals higher and higher.</p><p id="20615acd-5162-4de2-9200-f1900351d7a5" class="">The song, like so many on the album, feels like a Jenga tower unfalling. Its musical pieces slot into place, revealing their initial position – a position that was always baked into the song but held from the listener, who was always going to be eager for more.</p><p id="ac97ce96-00e4-4398-b0c7-77e075c5a44b" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Hurricanes”</p></div></div><div id="9d23bc35-1784-442e-b672-7fc64aac3af4" class="column-list"><div id="9bc6b857-dce9-430e-a6c6-5b57b431803b" style="width:31.25%" class="column"><figure id="2f018957-baaa-47a3-9d59-6fc7ae858a83" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/62bdffb0ccbd76e0ec6e054a/master/w_1280%2Cc_limit/Metric:%2520Formentera.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a0064125100_10.jpg"/></a></figure></div><div id="9e86ed54-868f-4559-b655-0705caa1d13e" style="width:68.75%" class="column"><h2 id="1334fb24-1005-4ee5-bee8-54aa341bf0f1" class="">3<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. God Save the Animals - Alex G</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="7ea09c64-0067-49fa-964f-36ca837db23b" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>My teacher is a child with a big smile – no bitterness.</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="2a2f5756-8808-4fcf-8e0e-235dfdfd6cfb" class="">Folks, he’s done it again. After 2019’s blisteringly good <em><em><em><em><em><em><em><em><em><em><em><em><em><em>House of Sugar</em></em></em></em></em></em></em></em></em></em></em></em></em></em>, I sort of wrote Alex G off. Neither <em><em><em><em><em><em>Rocket</em></em></em></em></em></em> nor <em><em><em><em><em><em>Trick</em></em></em></em></em></em> landed with me, and I assumed <em><em><em><em><em>Sugar</em></em></em></em></em> was a rare lightning strike.</p><p id="132db69f-1db6-40c3-a5d4-e80c0c3db5b2" class="">Turns out lightning’s actually more likely to strike in places where it’s already hit. And for Alex G, the atmospheric conditions seem to be calling for more and more thunderstorms.</p><p id="e70da166-b8f2-4b0d-aaa9-b782991c5f30" class="">The music of <em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>God Save the Animals</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em> is anything but thunderous. Instead, it is contemplative and tranquil, reliant on the acutely presented guitars and lofi drums we’ve come to expect from Alex G. The piano on “Runner” invites you to consider the feats of your heroes, but on “Mission,” it turns the question around, asking what <em><em><em><em><em><em><em>you’ll</em></em></em></em></em></em></em> do.</p><p id="bae984ad-b817-4bbd-af2d-a24c6d1cdb3a" class="">The album leans into quirked up vocal mixing, such as on the “yeah”-laden “Cross the Sea,” a message of devotion in a bottle, tossed from shore years ago. “Miracles” is similarly silver and sweet – the unconditional love behind “God help me, I love you, I agree” is terrifying and beautiful.</p><p id="65e8fa1b-3629-49e9-a59a-2343dd70ba17" class="">There are also gritty tracks like “Blessing,” a walk through a valley of mud and the naively self-assuring “Mission.” Honestly, I’d like to go on, but just trying to write this review, I find myself desperate to relisten – again and again.</p><p id="df36bf91-3717-4584-940c-a5933b9bac8b" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em></em>: “Runner”</p></div></div><div id="20c92e66-f11c-48e2-bbc0-64699ca0ac2c" class="column-list"><div id="66e5e3fa-f273-4b2a-a035-c085342b9339" style="width:31.25%" class="column"><figure id="9aa97365-281f-461c-8164-08feab806849" class="image" style="text-align:left"><a href="https://f4.bcbits.com/img/a4021760960_16.jpg"><img style="width:528px" src="https://f4.bcbits.com/img/a4021760960_16.jpg"/></a></figure></div><div id="db010ada-f2d9-4c3d-bfa6-b2aecdc3440d" style="width:68.75%" class="column"><h2 id="10deb8f4-a2be-41b4-9b5d-7be1fb63abf7" class="">2<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>.  Feather River Canyon Blues - Pigeon Pit</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="c2fa3496-0d3d-4da1-9993-b79d88b2e82b" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>I got some chicken soup for your fascist soul!</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="7d6e3b6a-46e5-438a-b242-b08a50d93f7e" class="">It seems that there are some genres that will just suck you in and hold you down. For me, folk punk is easily one of those. With Pigeon Pit’s new album, I feel as though I’ve been transported right back to my high school days, loudly and nasally singing along to songs about socialism, heartbreak, and being a grimy little goblin.</p><p id="f17eec23-159a-4cff-8b38-5e81e9324262" class="">I don’t know if there’s anything quite as folk punk that came out this year. On “Soup for My Family,” the band takes the humor and sharp social criticism of folk music and combines it with punk’s signature middle fingers. Both genres, however, speak to a working class whimsy, buoyed by steel guitar and exuberant fiddle. </p><p id="57de2bd4-de1e-44ff-b37c-b841607a0d29" class="">The relatability of the album is a huge boon. The stories told throughout are simple acts of love and community, such as the “world worth living in” of “Milk Crates” and the “silent promises” of “Empties”. These stories are also delightfully short, allowing the album to come in at a cool 30 minutes.</p><p id="b26d91a9-a26d-4660-ad30-c83dc44bf451" class="">The music is terrific, but I also want to draw special attention to the chorus of vocals present throughout the album. My personal favorite vocal moments are the final verses on “Empties” and “Milk Crates,” where voices coalesce in a messy, inspiring harmony.</p><p id="6357f5c7-f9b1-4e25-9afa-37f51a8eda7b" class=""><em><em>River Canyon Feather Blues</em></em> is, naturally, sharply political. “Tether,” a track that starts with a pretty direct metaphor about nationalism’s conflict with joy, also spends time describing the unnecessary things we tie ourselves to. The narrator here is a satisficer rather than a maximizer – as long as she gets a place to rest and food to eat, she’ll be happy. It’s a bohemian but sweet song that marks the album’s final act, closed out with the slow build of “Sunbleached” and the epilogue of “Feather River Canyon Blues.”</p><p id="11998577-2ba8-4cbe-a2dc-5dd7474d9c80" class="">The album is perfectly represented by its cover, which depicts the sun going down on a river and a road that seem to be happily directionless. A beautiful piece of acoustic work that I’m pleased to have had at my side this year. Plus, I think it wins the award for “Most Uses of ‘Trestle’,” at least this year.</p><p id="f4656f1d-149c-47ca-afc7-04e92578023c" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em>: “Tether”</p></div></div><div id="ae7c35ef-7bb4-4bb7-8c94-e0f958638d78" class="column-list"><div id="9058b976-d70b-4238-a7cb-f304d8ddec00" style="width:31.25%" class="column"><figure id="ae141336-266f-4be2-8d1a-511a2afacd43" class="image" style="text-align:left"><a href="https://media.pitchfork.com/photos/62bdffb0ccbd76e0ec6e054a/master/w_1280%2Cc_limit/Metric:%2520Formentera.jpg"><img style="width:528px" src="https://media.pitchfork.com/photos/62bdffb0ccbd76e0ec6e054a/master/w_1280%2Cc_limit/Metric:%2520Formentera.jpg"/></a></figure><p id="98b45897-a93c-4880-925f-65fd41de8084" class="">
+</p></div><div id="564034d5-b71c-48dc-9f40-14dc0804c49a" style="width:68.75%" class="column"><h2 id="2ec9bec0-d367-449c-93f5-a7dd02895f01" class="">1<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>. Formentera - Metric</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></h2><p id="31fcb5ad-deca-463e-aa1b-a2c351220312" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em><em>How were we to know the river ever would bend?</em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></em></p><p id="a675a858-eff0-4215-8e99-60f979be1639" class="">Who among us isn’t freaked out right now? Reading through this list, you’ve likely noticed that many of my favorite albums deal with society’s maladies, a list of anxieties, fears, and problems that seems to never end. Many of us have spent time obsessing over these ails, and Metric addresses this obsession on <em><em><em><em><em><em><em><em><em><em>Formentera</em></em></em></em></em></em></em></em></em></em>’s epic 10-minute opener, “Doomscroller.”</p><p id="ef9bffb4-f9da-43cd-ba2f-c5eaff0fedc5" class="">The term has grown in popularity in the past few years, and Emily Haines uses it to begin a descent into a dark, hopeless place. I cannot help but imagine myself as Orpheus, descending helplessly into Hades past legions of the wailing dead. The song pulses, a horde of synth and drum grabbing at your ankles as you sink into your seat. The wakeup call, the assurance of “Whatever you do, either way we’re gonna love you,” is a moment of clarity, but one I’ve cynically seen as a sort of <em>We Need to Talk About Kevin </em>assurance. It doesn’t matter how dark or twisted things may get in the descent to come, as long as an ascent follows.</p><p id="222eaba8-8a02-49db-9050-80ffd3724fc4" class="">From there, everything immediately comes crashing down to the ground floor, where “starting over won’t be easy.” There is desperation and determination from the bottom of the sea, synths and guitars molding into an unending chase sequence on “What Feels Like Eternity,” a song that I assume Sisyphus legally has to have on repeat. </p><p id="278cdb87-da53-47c7-9f6d-00fdab7e1ffd" class="">After the album’s initial three songs, Haines turns her writing up to an 11 with “Formentera.” The song’s cinematic opening fades into a relentless bass groove as Haines hurls metaphorical concoctions like Molotov cocktails, singing about the “heaviest fragile beast” and “a rising star in chains.” Have I parsed what she’s talking about? Of course not! But her delivery begs a simple kinship with her words, which move with determination into “Enemies of the Ocean.”</p><p id="cd560c55-c2d9-47d8-be94-c0db49234619" class="">If <em><em><em><em><em><em><em><em><em><em>Formentera</em></em></em></em></em></em></em></em></em></em>’s first songs are about identifying conflict, “Enemies of the Ocean” is about identifying blame. She chastises onlookers surprised by the way things have turned out, and is clearly furious at the unkind truths of the world. However, after this song, Haines begins her ascent, apologizing for her harsh words and acknowledging her silence and inactivity from her ivory tower, which she refers to as a “golden cage” on “I Will Never Settle.” Swallowing her own pride, she speaks of “humble pie on a paper plate” and compares silence to starving as guitars quake at her power.</p><p id="789418cc-8f5a-4e90-b262-5b492cdbc76d" class="">The album could end at this point, but “False Dichotomy” gives us an early victory lap with its keys, and “Oh Please” follows up with similarly tasty synthesized solos. But it’s “Paths in the Sky” that fills me with the most hope, an acknowledgement of our relative insignificance in the universe and a plea to love one another. We might be flying blind, with no way to stop the time – but that’s how we like it.</p><p id="a7586387-d505-4d1d-a0f9-9417a6c52600" class=""><em><em><em><em><em><em><em><em><em><em><em><em><em><em>Favorite Song</em></em></em></em></em></em></em></em></em></em></em></em></em></em>: “Formentera”</p></div></div><p id="b6a96333-a2bc-4e4c-bbbe-e1b0fd246a95" class="">Before I go, I need to soapbox real quick. It may come as a surprise, but I do this all for free. Now, I know, I know – you’d like to throw money at me right now. There’s no need to do that, really! However, if you do feel so compelled, I’d like to instead make a few suggestions:</p><div id="6db4d713-91fd-49db-b2cc-89445d800b51" class="column-list"><div id="cacc9708-b636-4613-a968-f1bbd1fbf4c2" style="width:33.33333333333333%" class="column"><figure id="9f7bfd72-8a48-4ae4-997d-e7696bf6b4ba" class="image"><a href="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-23_at_2.58.54_PM.png"><img style="width:288px" src="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-23_at_2.58.54_PM.png"/></a></figure><p id="24db7e16-64a7-4ca3-b15a-2e03b829d46d" class="">Iran’s response to the massive, women-led protest movement that’s formed since the death of Mahsa Amini has been a disgraceful abuse of power. The Abdorrahman Boroumand Center has been doing a lot of work documenting the cases and trials of protesters in this movement. I am not a fan of American intervention in Middle Eastern politics, but it’s still possible to show solidarity and support by donating at <a href="https://www.iranrights.org/donate">https://www.iranrights.org/donate</a>.</p></div><div id="3d4bdb7c-10b1-4624-978e-e511ff1fbaaf" style="width:33.333333333333336%" class="column"><figure id="537c6143-4ced-4c78-b431-06401d8347ee" class="image"><a href="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-23_at_3.00.10_PM.png"><img style="width:288px" src="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-23_at_3.00.10_PM.png"/></a></figure><p id="5a0a462e-dd21-4118-ae54-a624b871df78" class="">The Sogorea Te’ Land Trust is an urban land trust led by indigineous women in the Bay Area. The theft of land which was never meant to be owned is a deep scar, one that will require intense systemic change to heal. In the meantime, the land trust asks that any non-indigenous Bay Area residents provide a land tax at <a href="https://sogoreate-landtrust.org/pay-the-shuumi-land-tax/">https://sogoreate-landtrust.org/pay-the-shuumi-land-tax/</a>. </p></div><div id="b9221165-0aa6-493b-bd35-900cbd1c6972" style="width:33.333333333333336%" class="column"><figure id="db399153-f9c8-4fef-b29c-592c89d8b3f8" class="image"><a href="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-23_at_3.08.20_PM.png"><img style="width:288px" src="Album%20Reviews%202022%20d24f027bbe97483ca371e0bc78731c88/Screen_Shot_2022-12-23_at_3.08.20_PM.png"/></a></figure><p id="fc60dec5-c36c-4230-b897-55100a2c6ed8" class="">The economic education gap in Oakland has been a central subject in recent years, especially in light of the many school closures the city has been making. If you want to support local school districts, you can do so through the Oakland Public Education Fund, which invests in community resources for public schools. I’d advise donating directly to an individual school – you can find a list at <a href="https://www.oaklandedfund.org/give/donate-to-a-school/">https://www.oaklandedfund.org/give/donate-to-a-school/</a>. Why should Piedmont get all the cash?</p></div></div><p id="dff1db79-ec10-4bc0-9d07-d468724cb84d" class="">And that’s it! I appreciate anyone who made it this far, and I invite anyone who’s interested to share your favorite albums of 2022 with me! What did I miss? Who did I snub? Let me know at @weakandrewwk on Twitter, or email me at crewbitt@gmail.com. I’ll post anything good below. Happy New Year!</p><p id="cba57a61-d630-42a6-9ae1-65ecdfb62dd9" class="">
+</p></div></article></body></html>
