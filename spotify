@@ -1,2 +1,11 @@
 <html>
+	<head>
+		<title>
+		  Crew Bittner
+		</title>
+		<link href="css/crew.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<p>Whoa...</p>
+	</body>
 </html>
