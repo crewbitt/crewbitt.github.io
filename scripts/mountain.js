@@ -14,7 +14,6 @@ function codeSwitch() {
         document.querySelector(".header").innerHTML = '<h1>Crew</h1>'
         localStorage.setItem('currentThemeStorage','cas')
     }
-    
 }
 
 function initialization() {
