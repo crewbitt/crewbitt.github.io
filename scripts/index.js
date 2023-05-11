@@ -4,7 +4,7 @@ const head = document.head
 console.log(localStorage.getItem('currentThemeStorage'))
 
 function codeSwitch() {
-    if (localStorage.getItem('currentThemeStorage') == 'cas') {
+    if (localStorage.getItem('currentThemeStorage') != 'cas') {
         document.querySelector(".cssLink").setAttribute("href","css/crewPro.css")
         document.querySelector(".profileImage").setAttribute("src","images/profile2.jpg")
         document.querySelector(".header").innerHTML = '<h1>Crew Bittner</h1>'
