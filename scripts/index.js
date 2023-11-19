@@ -1,4 +1,4 @@
-/*Button that switches between site thremes. Potential updates: Options, better interface (overall overhaul)*/
+/*Button that switches between site thremes. Potential updates: Options, better interface (overall overhaul)
 const codeSwitcher = document.querySelector(".codeswitcher")
 const head = document.head
 console.log(localStorage.getItem('currentThemeStorage'))
@@ -38,3 +38,4 @@ function initialization() {
 initialization()
 
 codeSwitcher.addEventListener("click", codeSwitch)
+*/

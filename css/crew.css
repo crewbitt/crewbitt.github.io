@@ -4,6 +4,14 @@
   src:"fonts/KonkhmerSleokchher-Regular.ttf";
 }
 
+/* squares*/
+
+#class > .tr > .td {
+  width: 50px;
+  height: 50px;
+  background-color:red;
+}
+
 /* body and header*/
 body {
   width: 600px;

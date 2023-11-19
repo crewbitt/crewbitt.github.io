@@ -1,0 +1,139 @@
+/* fonts */
+@font-face {
+    font-family:"ksregular";
+    src:"fonts/KonkhmerSleokchher-Regular.ttf";
+  }
+
+  /* squares*/
+.grid {
+  display: grid;
+  width:640px;
+  margin: 20px auto;
+  position: absolute;
+}
+
+
+.grid-item {
+  background-color:white;
+  width:100px;
+  height:100px;
+  text-align:center;
+  position:relative;
+}
+
+.grid-item:hover {
+  cursor: crosshair;
+}
+
+#colorGrid {
+  display: grid;
+  margin-left: -75px;
+  position: absolute;
+}
+
+#colorGrid:hover {
+  cursor: pointer;
+}
+  
+  /* body and header*/
+  body {
+    width: 600px;
+    margin: 0 auto;
+    background-image: url("background1.jpeg");
+  }
+  
+  .center_index {
+      position:fixed;
+      background-color: beige;
+      height: 100%;
+    }
+  
+  .center {
+    background-color: beige;
+  }
+  
+  .header {
+    overflow: auto;
+    text-align: center;
+  }
+  
+  /*buttons*/
+  
+  .switcherButton {
+    position:fixed;
+    border-style: groove;
+    text-align: center;
+    background-color: grey;
+    width: 50px;
+    padding: 3px;
+    margin: 40 0 0 -300;
+    cursor:pointer;
+  }
+  
+  .switcherButton p{
+    margin: 0 0 0 0;
+    font-size:90%;
+  }
+  
+  .homeButton {
+    position:fixed;
+    border-style: groove;
+    text-align: center;
+    background-color: grey;
+    width: 50px;
+    padding: 3px;
+    margin: 5 0 0 -300;
+    cursor:pointer;
+  }
+  
+  .homeButton p{
+    margin: 0 0 0 0;
+    font-size: 90%;
+  }
+  
+  /*intro*/
+  
+  .introblock {
+    width: 450px;
+    margin: -400 0 0 80;
+  }
+  
+  .profileimage {
+    padding: 3px;
+    padding-right: 5px;
+    float: left;
+  }
+  
+  /*links*/
+  
+  .contactMe {
+    width: 450px;
+    margin: 0 0 0 80;
+    text-align: center;
+  }
+  
+  /*articles*/
+  
+  .article_block {
+    width: 450px;
+    margin: 0 0 0 80;
+  }
+  
+  .article {
+    height: 66px;
+    border: 1px solid;
+    border-color: navy;
+    margin-bottom: 10px;
+  }
+  
+  .article_image {
+    width: 60px;
+    padding: 3px;
+    float: left;
+  }
+  
+  .article_title {
+    text-align: center;
+    padding: 12 0;
+  }
+    
