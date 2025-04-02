@@ -5,7 +5,25 @@
 	</head>
 	<body>
 		<img src="index_files/crew.gif" width="200">
-		<p>crewbitt@gmail.com</p>
-		<p></p>
+		<p>crewbitt@gmail.com</p> 
+		<div class="audio-container" onclick="toggleAudio()">
+			<span class="play-text">▶</span>
+		</div>
+		<audio id="audio" src="index_files/song.wav"></audio>
+			<script>
+				let isPlaying = false;
+				const audio = document.getElementById("audio");
+				const playText = document.querySelector(".play-text");
+				function toggleAudio() {
+					if (isPlaying) {
+						audio.pause();
+						playText.textContent = "▶";
+					} else {
+						audio.play();
+						playText.textContent = "⏸";
+					}
+					isPlaying = !isPlaying;
+				}
+			</script>
 	</body>
 </html>
