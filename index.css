@@ -1,0 +1,13 @@
+body {
+    margin-left: 20%;
+    margin-right: 20%;
+    position: relative;
+    margin-top: 20%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+header {
+    margin-top: 50px;
+    display: inline-block;
+}
