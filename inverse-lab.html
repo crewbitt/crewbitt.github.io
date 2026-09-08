@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inverse Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<style>
+  :root{
+    --bg:#F1F0EA;
+    --panel:#FFFFFF;
+    --panel-border:#E2DFD1;
+    --ink:#1D2A20;
+    --ink-soft:#5B6459;
+    --board:#16261C;
+    --chalk:#F4F1E8;
+    --chalk-blue:#8FC1E3;
+    --chalk-yellow:#EAC466;
+    --good:#3F7D5C;
+    --good-bg:#E6F1EA;
+    --bad:#B84E3C;
+    --bad-bg:#FBEAE5;
+    --amber:#D8A23B;
+    --amber-ink:#4A3210;
+    --radius:12px;
+    --serif:'Source Serif 4', Georgia, serif;
+    --sans:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{max-width:840px; margin:0 auto; padding:20px 16px 60px;}
+
+  header.site{ padding:6px 4px 18px; }
+  header.site h1{
+    font-family:var(--serif); font-weight:700; font-size:2.05rem; margin:0 0 4px;
+    letter-spacing:-0.01em; color:var(--ink);
+  }
+  header.site h1 .flip{ display:inline-block; color:var(--amber); font-style:italic; }
+  header.site p{ margin:0; color:var(--ink-soft); font-size:0.98rem; max-width:52ch; }
+
+  .controls{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:14px 16px; display:flex; flex-wrap:wrap; gap:16px 22px; align-items:center;
+    margin-bottom:20px; position:sticky; top:10px; z-index:5;
+    box-shadow:0 2px 10px rgba(20,30,20,0.05);
+  }
+  .ctrl-group{ display:flex; flex-direction:column; gap:6px; }
+  .ctrl-label{ font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); font-weight:600; }
+  .pill-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .pill{
+    border:1px solid var(--panel-border); background:#FAF9F5; color:var(--ink-soft);
+    padding:6px 12px; border-radius:999px; font-size:0.86rem; font-weight:500; cursor:pointer;
+    transition:all .15s ease; user-select:none;
+  }
+  .pill:hover{ border-color:#C9C5B4; }
+  .pill.active{ background:var(--board); color:var(--chalk); border-color:var(--board); }
+  .seg{ display:flex; border:1px solid var(--panel-border); border-radius:999px; overflow:hidden; }
+  .seg button{
+    border:none; background:#FAF9F5; color:var(--ink-soft); padding:6px 14px; font-size:0.86rem;
+    font-weight:500; cursor:pointer; font-family:var(--sans);
+  }
+  .seg button.active{ background:var(--amber); color:var(--amber-ink); font-weight:600; }
+  .switch-row{ display:flex; align-items:center; gap:8px; }
+  .switch{ position:relative; width:38px; height:22px; }
+  .switch input{ opacity:0; width:0; height:0; }
+  .switch .track{
+    position:absolute; inset:0; background:#DDD9C9; border-radius:999px; cursor:pointer; transition:.15s;
+  }
+  .switch .track::before{
+    content:''; position:absolute; width:16px; height:16px; left:3px; top:3px; background:#fff; border-radius:50%;
+    transition:.15s; box-shadow:0 1px 2px rgba(0,0,0,0.25);
+  }
+  .switch input:checked + .track{ background:var(--good); }
+  .switch input:checked + .track::before{ transform:translateX(16px); }
+  .score-chip{ margin-left:auto; display:flex; align-items:center; gap:14px; font-family:var(--mono); }
+  .score-chip .num{ font-size:1.05rem; font-weight:600; }
+  .score-chip .lbl{ font-size:0.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em; }
+  .score-block{ text-align:right; }
+  .streak{ color:var(--amber); font-weight:600; }
+
+  .card{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:22px 24px 24px; box-shadow:0 2px 14px rgba(20,30,20,0.05);
+  }
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.05em;
+    background:var(--board); color:var(--chalk); padding:4px 10px; border-radius:6px; margin-bottom:14px;
+  }
+  .chip.chip2{ margin-left:6px; background:#3A4A3D; }
+  .prompt{ font-family:var(--serif); font-size:1.28rem; line-height:1.4; margin:0 0 18px; color:var(--ink); }
+  .subtext{ font-size:0.88rem; color:var(--ink-soft); margin:-10px 0 16px; }
+
+  table.mathtable{ border-collapse:collapse; margin:6px 0; }
+  table.mathtable caption{ text-align:left; font-weight:600; font-size:0.82rem; color:var(--ink-soft); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.04em;}
+  table.mathtable th, table.mathtable td{
+    border:1px solid var(--panel-border); padding:7px 14px; text-align:center; font-family:var(--mono); font-size:0.94rem;
+    min-width:44px;
+  }
+  table.mathtable th{ background:#FAF9F3; font-family:var(--sans); font-weight:600; font-size:0.82rem; }
+  table.mathtable input{
+    width:56px; border:1px solid #C9C5B4; border-radius:5px; padding:5px 4px; text-align:center;
+    font-family:var(--mono); font-size:0.92rem; background:#fff;
+  }
+  table.mathtable input.wrong{ border-color:var(--bad); background:var(--bad-bg); }
+  table.mathtable input.right{ border-color:var(--good); background:var(--good-bg); }
+  .tables-wrap{ display:flex; gap:28px; flex-wrap:wrap; margin-bottom:6px; }
+
+  .yn-row{ display:flex; gap:10px; margin-top:6px; }
+  .yn-btn{
+    padding:10px 22px; border-radius:8px; border:1.5px solid var(--panel-border); background:#FAF9F5;
+    font-family:var(--sans); font-weight:600; font-size:0.95rem; cursor:pointer; color:var(--ink);
+  }
+  .yn-btn.selected{ border-color:var(--board); background:var(--board); color:var(--chalk); }
+
+  canvas.board{ width:100%; max-width:560px; height:auto; border-radius:8px; display:block; touch-action:none; cursor:crosshair; }
+  .legend{ display:flex; gap:16px; margin-top:8px; font-size:0.82rem; color:var(--ink-soft); flex-wrap:wrap;}
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .swatch{ width:14px; height:4px; border-radius:2px; display:inline-block; }
+
+  .fn-display{ font-size:1.15rem; background:#FAF9F3; border:1px solid var(--panel-border);
+    padding:14px 16px; border-radius:8px; margin-bottom:12px; }
+  .fn-display .katex{ font-size:1.1em; }
+  .fn-input-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+  .fn-input-row input[type=text]{
+    font-family:var(--mono); font-size:1rem; padding:10px 12px; border:1.5px solid var(--panel-border);
+    border-radius:8px; flex:1; min-width:220px;
+  }
+  .fn-input-row input[type=text].wrong{ border-color:var(--bad); }
+  .fn-input-row input[type=text].right{ border-color:var(--good); }
+  .hint{ font-size:0.8rem; color:var(--ink-soft); margin-top:6px; }
+  .parse-err{ color:var(--bad); font-size:0.85rem; margin-top:6px; }
+
+  ol.step-list{ margin:0 0 4px; padding-left:22px; font-size:1.02rem; line-height:1.9; }
+  ol.step-list li{ padding-left:2px; }
+
+  .step-builder{ margin-top:4px; }
+  .step-row{ display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+  .step-row .step-num{ font-family:var(--mono); color:var(--ink-soft); width:20px; flex:none; }
+  .step-row select{
+    font-family:var(--sans); font-size:0.92rem; padding:8px 8px; border:1.5px solid var(--panel-border);
+    border-radius:7px; background:#fff; min-width:150px;
+  }
+  .step-row input[type=text]{
+    font-family:var(--mono); font-size:0.92rem; padding:8px 10px; border:1.5px solid var(--panel-border);
+    border-radius:7px; width:90px;
+  }
+  .step-row .step-remove{
+    border:none; background:transparent; color:var(--ink-soft); cursor:pointer; font-size:1rem; padding:4px 8px;
+  }
+  .step-row .step-remove:hover{ color:var(--bad); }
+  .step-add-btn{
+    margin-top:2px; background:transparent; border:1.5px dashed var(--panel-border); color:var(--ink-soft);
+    padding:8px 14px; border-radius:8px; font-family:var(--sans); font-size:0.88rem; cursor:pointer;
+  }
+  .step-add-btn:hover{ border-color:var(--amber); color:var(--ink); }
+
+  .btn-row{ display:flex; gap:10px; align-items:center; margin-top:18px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--sans); font-weight:600; font-size:0.94rem; padding:11px 22px; border-radius:8px;
+    border:none; cursor:pointer; transition:filter .1s;
+  }
+  .btn.primary{ background:var(--amber); color:var(--amber-ink); }
+  .btn.primary:hover{ filter:brightness(0.96); }
+  .btn.ghost{ background:transparent; border:1.5px solid var(--panel-border); color:var(--ink); }
+  .btn.ghost:hover{ background:#FAF9F5; }
+  .btn:disabled{ opacity:0.45; cursor:not-allowed; }
+
+  .feedback{ margin-top:16px; padding:14px 16px; border-radius:10px; font-size:0.94rem; line-height:1.5; display:none; }
+  .feedback.show{ display:block; }
+  .feedback.correct{ background:var(--good-bg); color:#245139; border:1px solid #BFE0CC; }
+  .feedback.incorrect{ background:var(--bad-bg); color:#7A2E20; border:1px solid #F0C6BA; }
+  .feedback .fline{ margin:3px 0; }
+  .feedback b{ font-weight:700; }
+  .feedback .katex{ font-size:1em; }
+
+  .dr-block{ margin-top:20px; padding-top:18px; border-top:1px dashed var(--panel-border); }
+  .dr-title{ font-family:var(--serif); font-size:1.02rem; margin:0 0 12px; color:var(--ink); }
+  .dr-q{ margin-bottom:14px; }
+  .dr-q-label{ font-weight:600; font-size:0.9rem; margin-bottom:8px; }
+  .dr-opts{ display:flex; flex-direction:column; gap:6px; }
+  .dr-opt{
+    text-align:left; padding:9px 12px; border-radius:7px; border:1.5px solid var(--panel-border);
+    background:#FAF9F5; font-family:var(--mono); font-size:0.88rem; cursor:pointer; color:var(--ink);
+  }
+  .dr-opt.selected{ border-color:var(--board); }
+  .dr-opt.correct-mark{ border-color:var(--good); background:var(--good-bg); }
+  .dr-opt.wrong-mark{ border-color:var(--bad); background:var(--bad-bg); }
+  .dr-opt:disabled{ cursor:default; }
+  .dr-text-row{ display:flex; align-items:center; gap:8px; }
+  .dr-text-row input[type=text]{
+    font-family:var(--mono); font-size:0.94rem; padding:8px 10px; border:1.5px solid var(--panel-border);
+    border-radius:7px; width:140px;
+  }
+  .dr-text-row input.wrong{ border-color:var(--bad); background:var(--bad-bg); }
+  .dr-text-row input.right{ border-color:var(--good); background:var(--good-bg); }
+  .dr-text-row .dr-answer{ font-family:var(--mono); font-size:0.88rem; color:var(--ink-soft); }
+
+  .warn-inline{ color:var(--bad); font-size:0.85rem; margin-top:8px; }
+
+  footer.site{ text-align:center; color:var(--ink-soft); font-size:0.78rem; margin-top:26px; }
+
+  @media (max-width:520px){
+    .controls{ gap:12px 16px; padding:12px; }
+    .score-chip{ margin-left:0; width:100%; justify-content:space-between; }
+    .card{ padding:18px 16px 20px; }
+    header.site h1{ font-size:1.6rem; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="site">
+    <h1>Practice with Inverses</span></h1>
+    <p>Use this as a tool to practice finding algebraic inverses with tables, graphs, and functions. Choose which skills you'd like to practice. You can also answer domain and range questions, and decide between easy and hard mode.</p>
+  </header>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <div class="ctrl-label">Areas</div>
+      <div class="pill-row" id="areaPills"></div>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">Difficulty</div>
+      <div class="seg" id="diffSeg">
+        <button data-v="easy" class="active">Easy · Recognize</button>
+        <button data-v="hard">Hard · Create</button>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">Inputs and Outputs</div>
+      <div class="switch-row">
+        <label class="switch"><input type="checkbox" id="drToggle"><span class="track"></span></label>
+        <span style="font-size:0.86rem;color:var(--ink-soft);">Add questions about Domain and Range</span>
+      </div>
+    </div>
+    <div class="score-chip">
+      <div class="score-block">
+        <div class="num" id="scoreNum">0 / 0</div>
+        <div class="lbl">Score</div>
+      </div>
+      <div class="score-block">
+        <div class="num streak" id="streakNum">0</div>
+        <div class="lbl">Streak</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="qcard"></div>
+
+  <footer class="site">Tip for inverses: swap the x's and y's!</footer>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function choice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function fmtSigned(n){ return n===0 ? '' : (n>0 ? ` + ${n}` : ` - ${-n}`); }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function near(a,b,tol){ return Math.abs(a-b) <= tol; }
+function round2(n){ return Math.round(n*100)/100; }
+
+function renderMath(container, latex, displayMode){
+  if(window.katex){
+    try{
+      window.katex.render(latex, container, {throwOnError:false, displayMode: !!displayMode});
+      return;
+    }catch(e){ /* fall through to plain text */ }
+  }
+  container.textContent = latex;
+}
+function mathSpan(latex){
+  const span = document.createElement('span');
+  renderMath(span, latex, false);
+  return span;
+}
+
+/* =========================================================
+   STEP ENGINE  (the "function machine" / operations model)
+   Each step: {op, val}. op in add/sub/mul/div/square/sqrt/cube/cbrt
+   ========================================================= */
+function applyOp(op, x){
+  switch(op.op){
+    case 'add': return x+op.val;
+    case 'sub': return x-op.val;
+    case 'mul': return x*op.val;
+    case 'div': return x/op.val;
+    case 'square': return x*x;
+    case 'sqrt': return Math.sqrt(x);
+    case 'cube': return x*x*x;
+    case 'cbrt': return Math.cbrt(x);
+    default: return NaN;
+  }
+}
+function runSteps(steps, x){ return steps.reduce((acc,op)=>applyOp(op,acc), x); }
+function invertOp(op){
+  switch(op.op){
+    case 'add': return {op:'sub', val:op.val};
+    case 'sub': return {op:'add', val:op.val};
+    case 'mul': return {op:'div', val:op.val};
+    case 'div': return {op:'mul', val:op.val};
+    case 'square': return {op:'sqrt'};
+    case 'sqrt': return {op:'square'};
+    case 'cube': return {op:'cbrt'};
+    case 'cbrt': return {op:'cube'};
+  }
+}
+function invertSteps(steps){ return steps.slice().reverse().map(invertOp); }
+function filterSteps(raw){
+  return raw.filter(op=>{
+    if((op.op==='add'||op.op==='sub') && op.val===0) return false;
+    if((op.op==='mul'||op.op==='div') && op.val===1) return false;
+    return true;
+  });
+}
+const STEP_OP_LABELS = {
+  add:'Add', sub:'Subtract', mul:'Multiply by', div:'Divide by',
+  square:'Square it', sqrt:'Take the square root', cube:'Cube it', cbrt:'Take the cube root'
+};
+const STEP_OPS_NEEDING_VALUE = new Set(['add','sub','mul','div']);
+function stepLabel(op){
+  if(op.op==='add') return op.val>=0 ? `Add ${op.val}` : `Subtract ${-op.val}`;
+  if(op.op==='sub') return op.val>=0 ? `Subtract ${op.val}` : `Add ${-op.val}`;
+  if(op.op==='mul') return `Multiply by ${op.val}`;
+  if(op.op==='div') return `Divide by ${op.val}`;
+  return STEP_OP_LABELS[op.op];
+}
+
+/* =========================================================
+   LaTeX HELPERS
+   ========================================================= */
+function latexCoeff(a){ return a===1?'':a===-1?'-':String(a); }
+function latexFracOrPlain(numeratorLatex, a){
+  if(a===1) return numeratorLatex;
+  return `\\dfrac{${numeratorLatex}}{${a}}`;
+}
+
+/* =========================================================
+   FUNCTION FAMILIES — all with a single bounded, open-interval
+   domain (lo, hi) and range (lo, hi). No asymptotes, no breaks.
+   ========================================================= */
+function genLinear(){
+  const a = choice([-3,-2,2,3,-1,1]);
+  const b = randInt(-6,6);
+  const width = randInt(5,9);
+  const p = randInt(-4,4), q = p+width;
+  const f = x => a*x+b;
+  const invF = x => (x-b)/a;
+  const e1=f(p), e2=f(q);
+  const rangeLo = Math.min(e1,e2), rangeHi = Math.max(e1,e2);
+  const steps = filterSteps([{op:'mul',val:a},{op:'add',val:b}]);
+  const invSteps = invertSteps(steps);
+  const fLatex = `f(x) = ${latexCoeff(a)}x${fmtSigned(b)}`;
+  const invLatex = `g(x) = ${latexFracOrPlain(`x${fmtSigned(-b)}`, a)}`;
+  const sampleXs = Array.from({length:Math.min(4,width-1)}, (_,i)=>p+1+i);
+  return {
+    type:'linear', params:{a,b}, f, invF, fLatex, invLatex, steps, invSteps,
+    domain:{lo:p,hi:q}, range:{lo:rangeLo,hi:rangeHi}, sampleXs,
+    plot:{xmin:p,xmax:q,ymin:rangeLo,ymax:rangeHi}
+  };
+}
+
+function genQuadratic(){
+  const a = choice([1,2,3]);
+  const h = randInt(-3,3), k = randInt(-3,3);
+  const width = choice([4,5,6]);
+  const p = h, q = h+width;
+  const f = x => a*(x-h)*(x-h)+k;
+  const invF = x => h + Math.sqrt((x-k)/a);
+  const rangeLo = k, rangeHi = f(q);
+  const steps = filterSteps([{op:'sub',val:h},{op:'square'},{op:'mul',val:a},{op:'add',val:k}]);
+  const invSteps = invertSteps(steps);
+  const xTerm = h===0 ? 'x' : `(x${fmtSigned(-h)})`;
+  const fLatex = `f(x) = ${latexCoeff(a)}${xTerm}^2${fmtSigned(k)}`;
+  const invLatex = `g(x) = \\sqrt{${latexFracOrPlain(`x${fmtSigned(-k)}`, a)}}${fmtSigned(h)}`;
+  const sampleXs = Array.from({length:Math.min(4,width-1)}, (_,i)=>p+1+i);
+  return {
+    type:'quadratic', params:{a,h,k}, f, invF, fLatex, invLatex, steps, invSteps,
+    domain:{lo:p,hi:q}, range:{lo:rangeLo,hi:rangeHi}, sampleXs,
+    plot:{xmin:p,xmax:q,ymin:rangeLo,ymax:rangeHi}
+  };
+}
+
+function genSqrt(){
+  const a = choice([1,2,3]);
+  const h = randInt(-3,3), k = randInt(-3,3);
+  const width = 16;
+  const p = h, q = h+width;
+  const f = x => a*Math.sqrt(x-h)+k;
+  const invF = x => h + Math.pow((x-k)/a,2);
+  const rangeLo = k, rangeHi = f(q);
+  const steps = filterSteps([{op:'sub',val:h},{op:'sqrt'},{op:'mul',val:a},{op:'add',val:k}]);
+  const invSteps = invertSteps(steps);
+  const fLatex = `f(x) = ${latexCoeff(a)}\\sqrt{x${fmtSigned(-h)}}${fmtSigned(k)}`;
+  const invLatex = `g(x) = \\left(${latexFracOrPlain(`x${fmtSigned(-k)}`, a)}\\right)^2${fmtSigned(h)}`;
+  const sampleXs = [h+1,h+4,h+9];
+  return {
+    type:'sqrt', params:{a,h,k}, f, invF, fLatex, invLatex, steps, invSteps,
+    domain:{lo:p,hi:q}, range:{lo:rangeLo,hi:rangeHi}, sampleXs,
+    plot:{xmin:p,xmax:q,ymin:rangeLo,ymax:rangeHi}
+  };
+}
+
+function genCubic(){
+  const a = choice([1,-1,2,-2]);
+  const h = randInt(-3,3), k = randInt(-3,3);
+  const w = choice([2,3]);
+  const p = h-w, q = h+w;
+  const f = x => a*Math.pow(x-h,3)+k;
+  const invF = x => h + Math.cbrt((x-k)/a);
+  const e1=f(p), e2=f(q);
+  const rangeLo=Math.min(e1,e2), rangeHi=Math.max(e1,e2);
+  const steps = filterSteps([{op:'sub',val:h},{op:'cube'},{op:'mul',val:a},{op:'add',val:k}]);
+  const invSteps = invertSteps(steps);
+  const xTerm = h===0 ? 'x' : `(x${fmtSigned(-h)})`;
+  const fLatex = `f(x) = ${latexCoeff(a)}${xTerm}^3${fmtSigned(k)}`;
+  const invLatex = `g(x) = \\sqrt[3]{${latexFracOrPlain(`x${fmtSigned(-k)}`, a)}}${fmtSigned(h)}`;
+  const sampleXs = Array.from({length:Math.min(4,2*w-1)}, (_,i)=>p+1+i);
+  return {
+    type:'cubic', params:{a,h,k}, f, invF, fLatex, invLatex, steps, invSteps,
+    domain:{lo:p,hi:q}, range:{lo:rangeLo,hi:rangeHi}, sampleXs,
+    plot:{xmin:p,xmax:q,ymin:rangeLo,ymax:rangeHi}
+  };
+}
+
+const FAMILY_GENERATORS = [genLinear, genQuadratic, genSqrt, genCubic];
+function randomFamily(){ return choice(FAMILY_GENERATORS)(); }
+
+/* =========================================================
+   DOMAIN/RANGE — always a single bounded open interval
+   ========================================================= */
+function fmtInterval(iv){ return `(${round2(iv.lo)}, ${round2(iv.hi)})`; }
+function intervalKey(iv){ return `${round2(iv.lo)}:${round2(iv.hi)}`; }
+
+function buildDRoptionsMC(correct, otherOriginal){
+  const pool = [correct, otherOriginal];
+  pool.push({lo:-correct.hi, hi:-correct.lo});                 // sign-flip distractor
+  pool.push({lo:correct.lo+choice([1,-1,2,-2]), hi:correct.hi}); // shifted endpoint
+  pool.push({lo:correct.lo, hi:correct.hi+choice([1,-1,2,-2])});
+  const seen = new Set(); const uniq = [];
+  for(const iv of pool){ const k=intervalKey(iv); if(!seen.has(k) && iv.lo<iv.hi){ seen.add(k); uniq.push(iv); } }
+  while(uniq.length<4){ const jitter = randInt(-9,9); uniq.push({lo:jitter, hi:jitter+randInt(2,9)}); }
+  const four = uniq.slice(0,4);
+  const order = shuffle(four.map((d,i)=>i));
+  const options = order.map(i=>fmtInterval(four[i]));
+  const correctIndex = order.indexOf(0);
+  return {options, correctIndex};
+}
+function parseIntervalInput(raw){
+  const nums = (raw.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  if(nums.length !== 2) return null;
+  const lo = Math.min(nums[0], nums[1]), hi = Math.max(nums[0], nums[1]);
+  return {lo, hi};
+}
+
+/* =========================================================
+   FRIENDLY EXPRESSION COMPILER (for functions-hard equation input)
+   ========================================================= */
+function compileExpression(raw){
+  let s = raw.trim();
+  if(!s) throw new Error('Type an expression for g(x) first.');
+  s = s.replace(/\s+/g,'');
+  s = s.replace(/sqrt/gi, '\u0001');
+  s = s.replace(/cbrt/gi, '\u0002');
+  s = s.replace(/abs/gi, '\u0003');
+  if(!/^[0-9x+\-*/^().\u0001\u0002\u0003]+$/.test(s)){
+    throw new Error('Only numbers, x, + - * / ^, parentheses, sqrt(), cbrt(), and abs() are allowed.');
+  }
+  s = s.replace(/\u0001/g, 'Math.sqrt');
+  s = s.replace(/\u0002/g, 'Math.cbrt');
+  s = s.replace(/\u0003/g, 'Math.abs');
+  s = s.replace(/(\d)(x|\()/g, '$1*$2');
+  s = s.replace(/(x)(\d|\()/g, '$1*$2');
+  s = s.replace(/(\))(\d|x|\()/g, '$1*$2');
+  s = s.replace(/\^/g, '**');
+  let fn;
+  try{
+    fn = new Function('x', `"use strict"; return (${s});`);
+    fn(1);
+  }catch(e){
+    throw new Error("That doesn't parse as a valid expression. Check your parentheses.");
+  }
+  return (x) => {
+    let v;
+    try{ v = fn(x); } catch(e){ return NaN; }
+    return typeof v === 'number' ? v : NaN;
+  };
+}
+
+/* =========================================================
+   SHARED GRADING: compare a candidate function to the true
+   inverse at the family's canonical test points.
+   ========================================================= */
+function gradeCandidateFn(fam, candidateFn){
+  const testXs = fam.sampleXs.map(x=>fam.f(x)); // exactly the domain of g
+  const expectedYs = fam.sampleXs;
+  let rightCount = 0;
+  testXs.forEach((tx,i)=>{
+    const got = candidateFn(tx);
+    if(isFinite(got) && near(got, expectedYs[i], 0.05)) rightCount++;
+  });
+  return {rightCount, total:testXs.length, correct: rightCount===testXs.length};
+}
+
+/* =========================================================
+   CANVAS DRAWING
+   ========================================================= */
+const COLOR = {
+  board:'#16261C', chalk:'#F4F1E8', grid:'rgba(244,241,232,0.14)',
+  axis:'rgba(244,241,232,0.55)', blue:'#8FC1E3', yellow:'#EAC466',
+  dash:'rgba(244,241,232,0.38)', good:'#6FCB9C', bad:'#EF9280'
+};
+function setupCanvas(canvas, cssW, cssH){
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = cssW*dpr; canvas.height = cssH*dpr;
+  canvas.style.width = cssW+'px'; canvas.style.height = cssH+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return ctx;
+}
+function makeTransform(plot, w, h, pad){
+  const xScale = (w-2*pad)/(plot.xmax-plot.xmin);
+  const yScale = (h-2*pad)/(plot.ymax-plot.ymin);
+  return {
+    toPx:(x,y)=>[pad+(x-plot.xmin)*xScale, h-pad-(y-plot.ymin)*yScale],
+    toMath:(px,py)=>[plot.xmin+(px-pad)/xScale, plot.ymin+(h-pad-py)/yScale],
+    xScale, yScale, pad
+  };
+}
+function squareWindow(plots, padUnits){
+  let lo=Infinity, hi=-Infinity;
+  plots.forEach(p=>{ lo=Math.min(lo,p.xmin,p.ymin); hi=Math.max(hi,p.xmax,p.ymax); });
+  lo -= padUnits; hi += padUnits;
+  return {xmin:lo,xmax:hi,ymin:lo,ymax:hi};
+}
+function drawBoard(ctx, w, h, plot, tf, opts){
+  opts = opts || {};
+  ctx.fillStyle = COLOR.board;
+  ctx.fillRect(0,0,w,h);
+  ctx.font = "11px 'IBM Plex Sans', sans-serif";
+  const xStart = Math.ceil(plot.xmin), xEnd = Math.floor(plot.xmax);
+  const yStart = Math.ceil(plot.ymin), yEnd = Math.floor(plot.ymax);
+  const xSpan = xEnd-xStart, ySpan = yEnd-yStart;
+  const xStep = xSpan>18 ? Math.ceil(xSpan/18) : 1;
+  const yStep = ySpan>18 ? Math.ceil(ySpan/18) : 1;
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = COLOR.grid;
+  ctx.beginPath();
+  for(let gx=xStart; gx<=xEnd; gx+=xStep){ const [px] = tf.toPx(gx,0); ctx.moveTo(px, tf.pad); ctx.lineTo(px, h-tf.pad); }
+  for(let gy=yStart; gy<=yEnd; gy+=yStep){ const [,py] = tf.toPx(0,gy); ctx.moveTo(tf.pad, py); ctx.lineTo(w-tf.pad, py); }
+  ctx.stroke();
+  ctx.strokeStyle = COLOR.axis;
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  if(plot.xmin<=0 && plot.xmax>=0){ const [px0] = tf.toPx(0,0); ctx.moveTo(px0, tf.pad); ctx.lineTo(px0, h-tf.pad); }
+  if(plot.ymin<=0 && plot.ymax>=0){ const [,py0] = tf.toPx(0,0); ctx.moveTo(tf.pad, py0); ctx.lineTo(w-tf.pad, py0); }
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(244,241,232,0.7)';
+  for(let gx=xStart; gx<=xEnd; gx+=xStep){
+    if(gx===0) continue;
+    const [px,py0] = tf.toPx(gx, Math.max(plot.ymin, Math.min(0,plot.ymax)));
+    ctx.fillText(String(gx), px-4, Math.min(h-tf.pad+14, py0+14));
+  }
+  for(let gy=yStart; gy<=yEnd; gy+=yStep){
+    if(gy===0) continue;
+    const [px0,py] = tf.toPx(Math.max(plot.xmin, Math.min(0,plot.xmax)), gy);
+    ctx.fillText(String(gy), Math.max(4, px0-22), py+4);
+  }
+  if(opts.showDiagonal){
+    const lo = Math.max(plot.xmin, plot.ymin), hi = Math.min(plot.xmax, plot.ymax);
+    if(hi>lo){
+      const [x1,y1] = tf.toPx(lo,lo), [x2,y2] = tf.toPx(hi,hi);
+      ctx.save(); ctx.setLineDash([5,5]); ctx.strokeStyle = COLOR.dash; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.restore();
+    }
+  }
+}
+function withinDomain(x, iv){ return x > iv.lo && x < iv.hi; }
+function drawCurve(ctx, tf, fn, domainIv, plot, color, lw){
+  const N = 420;
+  let started = false;
+  ctx.strokeStyle = color; ctx.lineWidth = lw || 3;
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  ctx.beginPath();
+  const margin = (plot.ymax-plot.ymin)*0.35;
+  for(let i=0;i<=N;i++){
+    const x = plot.xmin + (plot.xmax-plot.xmin)*i/N;
+    if(!withinDomain(x, domainIv)){ started=false; continue; }
+    const y = fn(x);
+    if(!isFinite(y) || y < plot.ymin-margin || y > plot.ymax+margin){ started=false; continue; }
+    const [px,py] = tf.toPx(x,y);
+    if(!started){ ctx.moveTo(px,py); started=true; } else { ctx.lineTo(px,py); }
+  }
+  ctx.stroke();
+}
+
+/* =========================================================
+   APP STATE
+   ========================================================= */
+const state = {
+  areas: {tables:true, graphs:true, functions:true},
+  difficulty: 'easy',
+  domainRange: false,
+  score: {correct:0, total:0, streak:0}
+};
+let currentCheck = null;
+let checked = false;
+let drState = null;
+let lastFam = null;
+
+const qcard = document.getElementById('qcard');
+const areaPillsEl = document.getElementById('areaPills');
+const diffSegEl = document.getElementById('diffSeg');
+const drToggleEl = document.getElementById('drToggle');
+const scoreNumEl = document.getElementById('scoreNum');
+const streakNumEl = document.getElementById('streakNum');
+
+const AREA_LABELS = {tables:'Tables', graphs:'Graphs', functions:'Functions'};
+function renderAreaPills(){
+  areaPillsEl.innerHTML = '';
+  Object.keys(AREA_LABELS).forEach(key=>{
+    const p = document.createElement('div');
+    p.className = 'pill' + (state.areas[key] ? ' active' : '');
+    p.textContent = AREA_LABELS[key];
+    p.onclick = () => {
+      const activeCount = Object.values(state.areas).filter(Boolean).length;
+      if(state.areas[key] && activeCount===1) return;
+      state.areas[key] = !state.areas[key];
+      renderAreaPills();
+    };
+    areaPillsEl.appendChild(p);
+  });
+}
+renderAreaPills();
+
+diffSegEl.querySelectorAll('button').forEach(btn=>{
+  btn.onclick = () => {
+    diffSegEl.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.difficulty = btn.dataset.v;
+    newQuestion();
+  };
+});
+drToggleEl.onchange = () => { state.domainRange = drToggleEl.checked; newQuestion(); };
+
+function updateScoreUI(){
+  scoreNumEl.textContent = `${state.score.correct} / ${state.score.total}`;
+  streakNumEl.textContent = String(state.score.streak);
+}
+function pickArea(){
+  const enabled = Object.keys(state.areas).filter(k=>state.areas[k]);
+  return choice(enabled);
+}
+
+/* =========================================================
+   SHARED "EASY" (yes/no recognition) PLAN
+   ========================================================= */
+function buildEasyPlan(fam){
+  const isTrue = Math.random() < 0.5;
+  let kind = 'true', extra = {};
+  if(!isTrue){
+    kind = choice(['shift','same','unrelated']);
+    if(kind==='shift') extra.c = choice([2,-2,3,-3,1,-1]);
+    if(kind==='unrelated') extra.other = randomFamily();
+  }
+  return {fam, kind, isTrue, extra};
+}
+function easyExplanation(area, plan){
+  const nounSwap = area==='tables' ? 'swaps every (x, y) pair'
+    : area==='graphs' ? 'is the reflection of the original curve across the line y = x'
+    : 'reverses every operation, in reverse order';
+  if(plan.isTrue) return `Yes — this candidate ${nounSwap}, so it is the true inverse.`;
+  if(plan.kind==='same') return `No — nothing was actually swapped/reversed here; it's just the original again.`;
+  if(plan.kind==='shift') return `No — it's close, but shifted off from the real inverse by a constant. Close doesn't count!`;
+  return `No — this comes from a completely different, unrelated function.`;
+}
+
+/* =========================================================
+   TABLES
+   ========================================================= */
+function tableEl(caption, rows, editable){
+  const wrap = document.createElement('div');
+  const t = document.createElement('table');
+  t.className = 'mathtable';
+  const cap = document.createElement('caption'); cap.textContent = caption; t.appendChild(cap);
+  const headTr = document.createElement('tr');
+  ['x','y'].forEach(hh=>{ const th=document.createElement('th'); th.textContent=hh; headTr.appendChild(th); });
+  t.appendChild(headTr);
+  const inputRefs = [];
+  rows.forEach(([x,y])=>{
+    const tr = document.createElement('tr');
+    if(editable){
+      const tdx=document.createElement('td'), tdy=document.createElement('td');
+      const ix=document.createElement('input'); ix.type='text'; ix.inputMode='decimal';
+      const iy=document.createElement('input'); iy.type='text'; iy.inputMode='decimal';
+      tdx.appendChild(ix); tdy.appendChild(iy);
+      tr.appendChild(tdx); tr.appendChild(tdy);
+      inputRefs.push([ix,iy]);
+    } else {
+      const tdx=document.createElement('td'), tdy=document.createElement('td');
+      tdx.textContent = x; tdy.textContent = y;
+      tr.appendChild(tdx); tr.appendChild(tdy);
+    }
+    t.appendChild(tr);
+  });
+  wrap.appendChild(t);
+  return {wrap, inputRefs};
+}
+
+function renderTablesEasy(fam){
+  const plan = buildEasyPlan(fam);
+  const rowsA = fam.sampleXs.map(x=>[x, round2(fam.f(x))]);
+  let rowsB;
+  if(plan.kind==='true') rowsB = rowsA.map(([x,y])=>[y,x]);
+  else if(plan.kind==='same') rowsB = rowsA.map(([x,y])=>[x,y]);
+  else if(plan.kind==='shift') rowsB = rowsA.map(([x,y])=>[y, round2(x+plan.extra.c)]);
+  else { const other = plan.extra.other; rowsB = other.sampleXs.slice(0,rowsA.length).map(x=>[x, round2(other.f(x))]); }
+
+  qcard.innerHTML = '';
+  addChip('TABLES · EASY');
+  addPrompt('Do Table A and Table B represent inverse functions?');
+  const holder = document.createElement('div'); holder.className='tables-wrap';
+  const A = tableEl('Table A', rowsA, false);
+  const B = tableEl('Table B', rowsB, false);
+  holder.appendChild(A.wrap); holder.appendChild(B.wrap);
+  qcard.appendChild(holder);
+
+  addYesNo((answer)=>({correct: answer===plan.isTrue, message: easyExplanation('tables', plan)}));
+  attachDomainRangeIfNeeded(fam);
+}
+
+function renderTablesHard(fam){
+  qcard.innerHTML = '';
+  addChip('TABLES · HARD');
+  addPrompt('Table A shows f(x). Fill in Table B so it represents the inverse, g(x).');
+  const holder = document.createElement('div'); holder.className='tables-wrap';
+  const rowsA = fam.sampleXs.map(x=>[x, round2(fam.f(x))]);
+  const A = tableEl('Table A — f(x)', rowsA, false);
+  const B = tableEl('Table B — g(x)', rowsA.map(()=>['','']), true);
+  holder.appendChild(A.wrap); holder.appendChild(B.wrap);
+  qcard.appendChild(holder);
+  const note = document.createElement('div'); note.className='subtext';
+  note.textContent = 'Tip: the inverse swaps every x and y value.';
+  qcard.appendChild(note);
+  const warnEl = document.createElement('div'); warnEl.className='warn-inline'; warnEl.style.display='none';
+  qcard.appendChild(warnEl);
+
+  currentCheck = () => {
+    const expected = rowsA.map(([x,y])=>[y,x]);
+    let allFilled = true;
+    B.inputRefs.forEach(([ix,iy])=>{ if(ix.value.trim()==='' || iy.value.trim()==='') allFilled=false; });
+    if(!allFilled){ warnEl.style.display='block'; warnEl.textContent='Fill in every cell before checking.'; return null; }
+    warnEl.style.display='none';
+    let rightCount = 0;
+    B.inputRefs.forEach(([ix,iy],i)=>{
+      const ux = parseFloat(ix.value), uy = parseFloat(iy.value);
+      const ok = near(ux, expected[i][0], 0.01) && near(uy, expected[i][1], 0.01);
+      ix.classList.toggle('right', ok); ix.classList.toggle('wrong', !ok);
+      iy.classList.toggle('right', ok); iy.classList.toggle('wrong', !ok);
+      if(ok) rightCount++;
+    });
+    const correct = rightCount === expected.length;
+    const message = correct ? `All ${expected.length} rows correctly swapped.`
+      : `${rightCount} of ${expected.length} rows correct — remember to swap x and y in each row.`;
+    return {correct, message};
+  };
+  addCheckButton();
+  attachDomainRangeIfNeeded(fam);
+}
+
+/* =========================================================
+   GRAPHS
+   ========================================================= */
+function renderGraphsEasy(fam){
+  const plan = buildEasyPlan(fam);
+  let gFn, gDomain, gPlot;
+  if(plan.kind==='true'){ gFn=fam.invF; gDomain=fam.range; gPlot=fam.plot; }
+  else if(plan.kind==='same'){ gFn=fam.f; gDomain=fam.domain; gPlot=fam.plot; }
+  else if(plan.kind==='shift'){ gFn=(x)=>fam.invF(x)+plan.extra.c; gDomain=fam.range; gPlot=fam.plot; }
+  else { gFn=plan.extra.other.f; gDomain=plan.extra.other.domain; gPlot=plan.extra.other.plot; }
+
+  qcard.innerHTML = '';
+  addChip('GRAPHS · EASY');
+  addPrompt('Is the yellow curve the inverse of the blue curve (a reflection across y = x)?');
+  const win = squareWindow([fam.plot, gPlot], 1.2);
+  const canvas = document.createElement('canvas'); canvas.className='board';
+  qcard.appendChild(canvas);
+  const cssW = 560, cssH = 400;
+  const ctx = setupCanvas(canvas, cssW, cssH);
+  const tf = makeTransform(win, cssW, cssH, 34);
+  drawBoard(ctx, cssW, cssH, win, tf, {showDiagonal:true});
+  drawCurve(ctx, tf, fam.f, fam.domain, win, COLOR.blue, 3);
+  drawCurve(ctx, tf, gFn, gDomain, win, COLOR.yellow, 3);
+
+  const legend = document.createElement('div'); legend.className='legend';
+  legend.innerHTML = `<span><span class="swatch" style="background:${COLOR.blue}"></span>f(x)</span>
+    <span><span class="swatch" style="background:${COLOR.yellow}"></span>g(x) candidate</span>
+    <span><span class="swatch" style="background:rgba(244,241,232,0.5)"></span>y = x</span>`;
+  qcard.appendChild(legend);
+
+  addYesNo((answer)=>({correct: answer===plan.isTrue, message: easyExplanation('graphs', plan)}));
+  attachDomainRangeIfNeeded(fam);
+}
+
+function renderGraphsHard(fam){
+  qcard.innerHTML = '';
+  addChip('GRAPHS · HARD');
+  addPrompt('Draw the inverse of f(x) by dragging your cursor (or finger) across the board.');
+  const win = squareWindow([fam.plot], 1.5);
+  const canvas = document.createElement('canvas'); canvas.className='board';
+  qcard.appendChild(canvas);
+  const cssW = 560, cssH = 400;
+  const ctx = setupCanvas(canvas, cssW, cssH);
+  const tf = makeTransform(win, cssW, cssH, 34);
+
+  let strokePts = [];
+  let drawing = false;
+  function redraw(showTruth){
+    drawBoard(ctx, cssW, cssH, win, tf, {showDiagonal:true});
+    drawCurve(ctx, tf, fam.f, fam.domain, win, COLOR.blue, 3);
+    if(showTruth) drawCurve(ctx, tf, fam.invF, fam.range, win, COLOR.good, 2);
+    if(strokePts.length>1){
+      ctx.strokeStyle = COLOR.yellow; ctx.lineWidth = 3; ctx.lineJoin='round'; ctx.lineCap='round';
+      ctx.beginPath();
+      strokePts.forEach(([x,y],i)=>{ const [px,py] = tf.toPx(x,y); if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py); });
+      ctx.stroke();
+    }
+  }
+  redraw(false);
+  function ptFromEvent(e){
+    const rect = canvas.getBoundingClientRect();
+    const px = (e.clientX-rect.left) * (cssW/rect.width);
+    const py = (e.clientY-rect.top) * (cssH/rect.height);
+    return tf.toMath(px,py);
+  }
+  canvas.addEventListener('pointerdown', e=>{ drawing=true; canvas.setPointerCapture(e.pointerId); strokePts.push(ptFromEvent(e)); redraw(false); });
+  canvas.addEventListener('pointermove', e=>{ if(!drawing) return; strokePts.push(ptFromEvent(e)); redraw(false); });
+  ['pointerup','pointerleave','pointercancel'].forEach(evt=>canvas.addEventListener(evt, ()=>{ drawing=false; }));
+
+  const legend = document.createElement('div'); legend.className='legend';
+  legend.innerHTML = `<span><span class="swatch" style="background:${COLOR.blue}"></span>f(x)</span>
+    <span><span class="swatch" style="background:${COLOR.yellow}"></span>your inverse</span>`;
+  qcard.appendChild(legend);
+
+  const clearBtn = document.createElement('button');
+  clearBtn.className = 'btn ghost'; clearBtn.textContent = 'Clear drawing'; clearBtn.style.marginTop='10px';
+  clearBtn.onclick = () => { strokePts=[]; redraw(false); };
+  qcard.appendChild(clearBtn);
+  const warnEl = document.createElement('div'); warnEl.className='warn-inline'; warnEl.style.display='none';
+  qcard.appendChild(warnEl);
+
+  currentCheck = () => {
+    if(strokePts.length < 6){ warnEl.style.display='block'; warnEl.textContent='Draw a bit more of the curve before checking.'; return null; }
+    warnEl.style.display='none';
+    const lo = Math.max(win.xmin, fam.range.lo), hi = Math.min(win.xmax, fam.range.hi);
+    const nSamples = 14;
+    let hitCount = 0, coveredCount = 0;
+    const tolY = (win.ymax-win.ymin)*0.07 + 0.15;
+    const tolX = (win.xmax-win.xmin)*0.08;
+    for(let i=0;i<nSamples;i++){
+      const x = lo + (hi-lo)*i/(nSamples-1);
+      let best=null, bestDx=Infinity;
+      strokePts.forEach(([px,py])=>{ const dx=Math.abs(px-x); if(dx<bestDx){ bestDx=dx; best=py; } });
+      if(best===null || bestDx>tolX) continue;
+      coveredCount++;
+      const truth = fam.invF(x);
+      if(isFinite(truth) && near(best, truth, tolY)) hitCount++;
+    }
+    const coverage = coveredCount/nSamples;
+    const accuracy = coveredCount>0 ? hitCount/coveredCount : 0;
+    const correct = coverage >= 0.6 && accuracy >= 0.75;
+    redraw(true);
+    let message;
+    if(correct) message = 'Nicely drawn — your curve tracks the true inverse (shown in green) closely.';
+    else if(coverage < 0.6) message = `Your drawing didn't cover enough of the curve's domain. The true inverse is shown in green — try to trace its full length next time.`;
+    else message = `Coverage was good, but the shape drifted from the true inverse (shown in green here).`;
+    return {correct, message};
+  };
+  addCheckButton();
+  attachDomainRangeIfNeeded(fam);
+}
+
+/* =========================================================
+   FUNCTIONS — alternates between "equation" and "steps" format
+   ========================================================= */
+function stepListEl(steps){
+  const ol = document.createElement('ol'); ol.className='step-list';
+  steps.forEach(op=>{ const li=document.createElement('li'); li.textContent = stepLabel(op); ol.appendChild(li); });
+  return ol;
+}
+
+function renderFunctionsEasy(fam){
+  const plan = buildEasyPlan(fam);
+  const format = choice(['equation','steps']);
+
+  qcard.innerHTML = '';
+  addChip('FUNCTIONS · EASY');
+  const chip2 = document.createElement('span'); chip2.className='chip chip2';
+  chip2.textContent = format==='equation' ? 'AS EQUATIONS' : 'AS STEPS';
+  qcard.querySelector('.chip').after(chip2);
+  addPrompt('Are f(x) and g(x) inverse functions?');
+
+  const disp = document.createElement('div'); disp.className='fn-display';
+
+  if(format==='equation'){
+    let gLatex;
+    if(plan.kind==='true') gLatex = fam.invLatex;
+    else if(plan.kind==='same') gLatex = fam.fLatex.replace('f(x)','g(x)');
+    else if(plan.kind==='shift') gLatex = fam.invLatex + fmtSigned(plan.extra.c);
+    else gLatex = plan.extra.other.fLatex.replace('f(x)','g(x)');
+    const line1 = document.createElement('div'); renderMath(line1, fam.fLatex, true);
+    const line2 = document.createElement('div'); renderMath(line2, gLatex, true);
+    disp.appendChild(line1); disp.appendChild(line2);
+  } else {
+    let gSteps;
+    if(plan.kind==='true') gSteps = fam.invSteps;
+    else if(plan.kind==='same') gSteps = fam.steps;
+    else if(plan.kind==='shift') gSteps = fam.invSteps.concat([{op:'add', val:plan.extra.c}]);
+    else gSteps = plan.extra.other.steps;
+    const lbl1 = document.createElement('div'); lbl1.innerHTML = '<b>f(x)</b> does, in order:';
+    lbl1.style.marginBottom='4px';
+    const lbl2 = document.createElement('div'); lbl2.innerHTML = '<b>g(x)</b> does, in order:';
+    lbl2.style.margin='10px 0 4px';
+    disp.appendChild(lbl1); disp.appendChild(stepListEl(fam.steps));
+    disp.appendChild(lbl2); disp.appendChild(stepListEl(gSteps));
+  }
+  qcard.appendChild(disp);
+
+  addYesNo((answer)=>({correct: answer===plan.isTrue, message: easyExplanation('functions', plan)}));
+  attachDomainRangeIfNeeded(fam);
+}
+
+function renderFunctionsHard(fam){
+  const format = choice(['equation','steps']);
+  qcard.innerHTML = '';
+  addChip('FUNCTIONS · HARD');
+  const chip2 = document.createElement('span'); chip2.className='chip chip2';
+  chip2.textContent = format==='equation' ? 'AS AN EQUATION' : 'AS STEPS';
+  qcard.querySelector('.chip').after(chip2);
+
+  if(format==='equation'){
+    addPrompt('Write the inverse, g(x), for the function below.');
+    const disp = document.createElement('div'); disp.className='fn-display';
+    renderMath(disp, fam.fLatex, true);
+    qcard.appendChild(disp);
+
+    const row = document.createElement('div'); row.className='fn-input-row';
+    const label = document.createElement('span'); label.textContent = 'g(x) ='; label.style.fontFamily='var(--mono)';
+    const input = document.createElement('input'); input.type='text'; input.placeholder='e.g. (x - 3) / 2';
+    row.appendChild(label); row.appendChild(input);
+    qcard.appendChild(row);
+    const hint = document.createElement('div'); hint.className='hint';
+    hint.textContent = 'Use * for multiply, ^ for exponents, and sqrt(), cbrt(), abs() as needed.';
+    qcard.appendChild(hint);
+    const errEl = document.createElement('div'); errEl.className='parse-err'; errEl.style.display='none';
+    qcard.appendChild(errEl);
+
+    currentCheck = () => {
+      let studentFn;
+      try{ studentFn = compileExpression(input.value); }
+      catch(e){ errEl.style.display='block'; errEl.textContent=e.message; input.classList.add('wrong'); return null; }
+      errEl.style.display='none';
+      const g = gradeCandidateFn(fam, studentFn);
+      input.classList.toggle('right', g.correct);
+      input.classList.toggle('wrong', !g.correct);
+      const feedbackWrap = document.createElement('span');
+      renderMath(feedbackWrap, fam.invLatex, false);
+      const message = g.correct
+        ? `Correct.`
+        : `Not quite (matched ${g.rightCount}/${g.total} test points). The inverse is `;
+      return {correct: g.correct, message, revealLatex: g.correct ? null : fam.invLatex};
+    };
+  } else {
+    addPrompt('f(x) performs these steps, in order. Build the steps for the inverse, g(x).');
+    const disp = document.createElement('div'); disp.className='fn-display';
+    disp.appendChild(stepListEl(fam.steps));
+    qcard.appendChild(disp);
+    const note = document.createElement('div'); note.className='subtext';
+    note.textContent = 'Tip: undo each step with its opposite operation, in reverse order.';
+    qcard.appendChild(note);
+
+    const builder = document.createElement('div'); builder.className='step-builder';
+    qcard.appendChild(builder);
+    const rows = [];
+
+    function makeOptionsHtml(){
+      return Object.entries(STEP_OP_LABELS).map(([val,lbl])=>`<option value="${val}">${lbl}</option>`).join('');
+    }
+    function renumber(){
+      rows.forEach((r,i)=>{ r.numEl.textContent = (i+1)+'.'; });
+    }
+    function addRow(){
+      if(rows.length>=6) return;
+      const row = document.createElement('div'); row.className='step-row';
+      const num = document.createElement('span'); num.className='step-num';
+      const sel = document.createElement('select');
+      sel.innerHTML = makeOptionsHtml();
+      const val = document.createElement('input'); val.type='text'; val.placeholder='value'; val.inputMode='decimal';
+      const rm = document.createElement('button'); rm.type='button'; rm.className='step-remove'; rm.textContent='✕';
+      function syncValVisibility(){ val.style.display = STEP_OPS_NEEDING_VALUE.has(sel.value) ? '' : 'none'; }
+      sel.onchange = syncValVisibility;
+      syncValVisibility();
+      rm.onclick = () => {
+        const idx = rows.findIndex(r=>r.row===row);
+        if(idx>-1) rows.splice(idx,1);
+        row.remove();
+        renumber();
+      };
+      row.appendChild(num); row.appendChild(sel); row.appendChild(val); row.appendChild(rm);
+      builder.insertBefore(row, addBtn);
+      rows.push({row, sel, val, numEl:num});
+      renumber();
+    }
+    const addBtn = document.createElement('button');
+    addBtn.type='button'; addBtn.className='step-add-btn'; addBtn.textContent='+ Add step';
+    addBtn.onclick = addRow;
+    builder.appendChild(addBtn);
+    addRow(); addRow();
+
+    const warnEl = document.createElement('div'); warnEl.className='warn-inline'; warnEl.style.display='none';
+    qcard.appendChild(warnEl);
+
+    currentCheck = () => {
+      if(rows.length===0){ warnEl.style.display='block'; warnEl.textContent='Add at least one step.'; return null; }
+      const steps = [];
+      for(const r of rows){
+        const op = r.sel.value;
+        if(STEP_OPS_NEEDING_VALUE.has(op)){
+          const v = parseFloat(r.val.value);
+          if(r.val.value.trim()==='' || isNaN(v)){
+            warnEl.style.display='block'; warnEl.textContent='Fill in a value for every Add/Subtract/Multiply/Divide step.';
+            return null;
+          }
+          steps.push({op, val:v});
+        } else {
+          steps.push({op});
+        }
+      }
+      warnEl.style.display='none';
+      const studentFn = (x)=>{ try{ return runSteps(steps, x); } catch(e){ return NaN; } };
+      const g = gradeCandidateFn(fam, studentFn);
+      const message = g.correct ? 'Correct.' : `Not quite (matched ${g.rightCount}/${g.total} test points).`;
+      return {correct: g.correct, message, revealSteps: g.correct ? null : fam.invSteps};
+    };
+  }
+  addCheckButton();
+  attachDomainRangeIfNeeded(fam);
+}
+
+/* =========================================================
+   DOMAIN & RANGE SUB-BLOCK
+   Easy: multiple choice. Hard: free-text interval entry.
+   ========================================================= */
+function attachDomainRangeIfNeeded(fam){
+  if(!state.domainRange){ drState = null; return; }
+  const block = document.createElement('div'); block.className='dr-block';
+  const title = document.createElement('div'); title.className='dr-title';
+  title.textContent = 'Also: domain & range of the inverse, g(x)';
+  block.appendChild(title);
+
+  if(state.difficulty==='easy'){
+    const domainQ = buildDRoptionsMC(fam.range, fam.domain);
+    const rangeQ  = buildDRoptionsMC(fam.domain, fam.range);
+    drState = {mode:'mc', domainQ, rangeQ, domainSelected:null, rangeSelected:null};
+    block.appendChild(buildDRQuestionMC('Domain of g(x):', domainQ, (i)=>{ drState.domainSelected = i; }));
+    block.appendChild(buildDRQuestionMC('Range of g(x):', rangeQ, (i)=>{ drState.rangeSelected = i; }));
+  } else {
+    drState = {mode:'text', domainExpected: fam.range, rangeExpected: fam.domain, domainInput:null, rangeInput:null};
+    block.appendChild(buildDRQuestionText('Domain of g(x):', (el)=>{ drState.domainInput = el; }));
+    block.appendChild(buildDRQuestionText('Range of g(x):', (el)=>{ drState.rangeInput = el; }));
+  }
+  qcard.appendChild(block);
+}
+function buildDRQuestionMC(labelText, q, onSelect){
+  const wrap = document.createElement('div'); wrap.className='dr-q';
+  const label = document.createElement('div'); label.className='dr-q-label'; label.textContent = labelText;
+  wrap.appendChild(label);
+  const opts = document.createElement('div'); opts.className='dr-opts';
+  q.buttons = [];
+  q.options.forEach((optText,i)=>{
+    const b = document.createElement('button'); b.className='dr-opt'; b.textContent = optText;
+    b.onclick = () => { opts.querySelectorAll('.dr-opt').forEach(o=>o.classList.remove('selected')); b.classList.add('selected'); onSelect(i); };
+    q.buttons.push(b);
+    opts.appendChild(b);
+  });
+  wrap.appendChild(opts);
+  return wrap;
+}
+function buildDRQuestionText(labelText, onEl){
+  const wrap = document.createElement('div'); wrap.className='dr-q';
+  const label = document.createElement('div'); label.className='dr-q-label'; label.textContent = labelText;
+  wrap.appendChild(label);
+  const row = document.createElement('div'); row.className='dr-text-row';
+  const input = document.createElement('input'); input.type='text'; input.placeholder='(a, b)';
+  row.appendChild(input);
+  wrap.appendChild(row);
+  onEl(input);
+  return wrap;
+}
+function gradeDomainRange(){
+  if(!state.domainRange || !drState) return {domainOk:true, rangeOk:true};
+  if(drState.mode==='mc'){
+    const domainOk = drState.domainSelected === drState.domainQ.correctIndex;
+    const rangeOk = drState.rangeSelected === drState.rangeQ.correctIndex;
+    drState.domainQ.buttons.forEach((b,i)=>{
+      b.disabled = true;
+      if(i===drState.domainQ.correctIndex) b.classList.add('correct-mark');
+      else if(i===drState.domainSelected) b.classList.add('wrong-mark');
+    });
+    drState.rangeQ.buttons.forEach((b,i)=>{
+      b.disabled = true;
+      if(i===drState.rangeQ.correctIndex) b.classList.add('correct-mark');
+      else if(i===drState.rangeSelected) b.classList.add('wrong-mark');
+    });
+    return {domainOk, rangeOk};
+  } else {
+    const dParsed = parseIntervalInput(drState.domainInput.value);
+    const rParsed = parseIntervalInput(drState.rangeInput.value);
+    const domainOk = !!dParsed && near(dParsed.lo, drState.domainExpected.lo, 0.05) && near(dParsed.hi, drState.domainExpected.hi, 0.05);
+    const rangeOk = !!rParsed && near(rParsed.lo, drState.rangeExpected.lo, 0.05) && near(rParsed.hi, drState.rangeExpected.hi, 0.05);
+    drState.domainInput.disabled = true; drState.rangeInput.disabled = true;
+    drState.domainInput.classList.add(domainOk?'right':'wrong');
+    drState.rangeInput.classList.add(rangeOk?'right':'wrong');
+    if(!domainOk){
+      const a = document.createElement('span'); a.className='dr-answer'; a.textContent = '  Correct: '+fmtInterval(drState.domainExpected);
+      drState.domainInput.after(a);
+    }
+    if(!rangeOk){
+      const a = document.createElement('span'); a.className='dr-answer'; a.textContent = '  Correct: '+fmtInterval(drState.rangeExpected);
+      drState.rangeInput.after(a);
+    }
+    return {domainOk, rangeOk};
+  }
+}
+
+/* =========================================================
+   SHARED UI PIECES
+   ========================================================= */
+function addChip(text){ const c = document.createElement('div'); c.className='chip'; c.textContent=text; qcard.appendChild(c); }
+function addPrompt(text){ const p = document.createElement('p'); p.className='prompt'; p.textContent=text; qcard.appendChild(p); }
+function addCheckButton(){
+  const row = document.createElement('div'); row.className='btn-row';
+  const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Check answer';
+  btn.onclick = () => runCheck(btn);
+  row.appendChild(btn);
+  qcard.appendChild(row);
+  qcard.appendChild(feedbackEl());
+}
+function addYesNo(evalFn){
+  const row = document.createElement('div'); row.className='yn-row';
+  let selected = null;
+  const yesBtn = document.createElement('button'); yesBtn.className='yn-btn'; yesBtn.textContent='Yes, inverses';
+  const noBtn = document.createElement('button'); noBtn.className='yn-btn'; noBtn.textContent='No, not inverses';
+  yesBtn.onclick = () => { selected=true; yesBtn.classList.add('selected'); noBtn.classList.remove('selected'); };
+  noBtn.onclick = () => { selected=false; noBtn.classList.add('selected'); yesBtn.classList.remove('selected'); };
+  row.appendChild(yesBtn); row.appendChild(noBtn);
+  qcard.appendChild(row);
+  const warnEl = document.createElement('div'); warnEl.className='warn-inline'; warnEl.style.display='none';
+  qcard.appendChild(warnEl);
+  currentCheck = () => {
+    if(selected===null){ warnEl.style.display='block'; warnEl.textContent='Pick Yes or No first.'; return null; }
+    warnEl.style.display='none';
+    return evalFn(selected);
+  };
+  addCheckButton();
+}
+function feedbackEl(){ const f = document.createElement('div'); f.className='feedback'; f.id='feedbackBox'; return f; }
+
+function runCheck(btn){
+  if(checked) return;
+  const mainResult = currentCheck();
+  if(mainResult===null) return;
+
+  const dr = gradeDomainRange();
+  const pressCorrect = mainResult.correct && (!state.domainRange || (dr.domainOk && dr.rangeOk));
+
+  state.score.total++;
+  if(pressCorrect){ state.score.correct++; state.score.streak++; } else { state.score.streak = 0; }
+  updateScoreUI();
+
+  const fb = document.getElementById('feedbackBox');
+  fb.classList.add('show');
+  fb.classList.toggle('correct', pressCorrect);
+  fb.classList.toggle('incorrect', !pressCorrect);
+  fb.innerHTML = '';
+  const line1 = document.createElement('div'); line1.className='fline';
+  const b = document.createElement('b'); b.textContent = mainResult.correct ? '✓ Correct.' : '✗ Not quite.';
+  line1.appendChild(b);
+  line1.appendChild(document.createTextNode(' ' + mainResult.message));
+  if(mainResult.revealLatex){ line1.appendChild(mathSpan(mainResult.invLatex || mainResult.revealLatex)); line1.appendChild(document.createTextNode('.')); }
+  if(mainResult.revealSteps){
+    line1.appendChild(document.createElement('br'));
+    line1.appendChild(document.createTextNode('The inverse steps: ' + mainResult.revealSteps.map(stepLabel).join(' → ')));
+  }
+  fb.appendChild(line1);
+  if(state.domainRange){
+    const l2 = document.createElement('div'); l2.className='fline';
+    l2.textContent = `${dr.domainOk ? '✓' : '✗'} Domain of g(x) ${dr.domainOk ? 'correct.' : 'incorrect — see correction above.'}`;
+    const l3 = document.createElement('div'); l3.className='fline';
+    l3.textContent = `${dr.rangeOk ? '✓' : '✗'} Range of g(x) ${dr.rangeOk ? 'correct.' : 'incorrect — see correction above.'}`;
+    fb.appendChild(l2); fb.appendChild(l3);
+  }
+
+  btn.style.display = 'none';
+  const row = btn.parentElement;
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'btn primary'; nextBtn.textContent = 'Next question →';
+  nextBtn.onclick = newQuestion;
+  row.appendChild(nextBtn);
+  checked = true;
+}
+
+/* =========================================================
+   MAIN LOOP
+   ========================================================= */
+function newQuestion(){
+  checked = false;
+  currentCheck = null;
+  drState = null;
+  const area = pickArea();
+  const fam = randomFamily();
+  lastFam = fam;
+  const diff = state.difficulty;
+
+  if(area==='tables' && diff==='easy') renderTablesEasy(fam);
+  else if(area==='tables' && diff==='hard') renderTablesHard(fam);
+  else if(area==='graphs' && diff==='easy') renderGraphsEasy(fam);
+  else if(area==='graphs' && diff==='hard') renderGraphsHard(fam);
+  else if(area==='functions' && diff==='easy') renderFunctionsEasy(fam);
+  else renderFunctionsHard(fam);
+}
+
+updateScoreUI();
+newQuestion();
+
+window.__inverseLab = {
+  state, newQuestion,
+  runCheck: () => currentCheck && currentCheck(),
+  getFam: () => lastFam,
+  getDrState: () => drState
+};
+</script>
+</body>
+</html>
